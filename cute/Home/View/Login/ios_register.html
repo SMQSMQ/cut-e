@@ -1,0 +1,108 @@
+<include file="Public:ios_header" />
+<script src="__APP__/public/js/gmu.js"></script>
+	<style type="text/css">
+
+         .regbg{background: #fff; overflow: hidden; margin-top: 20px;}
+         .regbg p{height:45px; line-height: 45px;  position: relative;}
+
+         .reg_select{ border-color:#ff5f83 !important }
+
+         .regbg-input{width:90%; font-size: 14px; padding: 0 5%; height:44px; border: none; outline: none;border-bottom: 1px solid #e6e6e6;}
+         .reg-btn{height:25px; line-height: 25px; border-radius: 5px; border: 1px solid #ff5f83; color: #ff5f83; position:absolute;right: 10px; top: 10px; width:auto; padding: 0 10px; background: none;}
+
+
+         .reg-btnbox{padding: 15px; overflow: hidden;}
+         .reg-btn1{height:45px; background: #ff5f83; line-height: 45px; text-align: center; text-decoration: none; border-radius: 5px; display: block; color: #fff;}
+
+	</style>
+
+	      <form  action="" method="post" id="regster">
+			      <div class="regbg">
+			      	 <p><input  placeholder="请输入您的手机号" type="text" maxlength="11" name="u" class="blur regbg-input" id="username_i"></p>
+			      	 <p>
+			      	 	<input  placeholder="请输入验证码" type="text"  maxlength="6" name="code" class="blur regbg-input" id="code_i">
+			      	 	<!--按钮-->
+			      	 	<input type="button"  class="reg-btn" value="获取验证码" />
+			      	 </p>
+			      	 <p><input  placeholder="密码为6-32位字母、数字组成"  name="p" maxlength="32" type="text" class="blur regbg-input" id="password_i"  ></p>
+			      </div>
+			      <div class="reg-btnbox">
+			      	 <a href="#" class="reg-btn1" id="submit">登录</a>
+			      </div>
+	     </form>		      
+           
+	      <script src="__APP__/public/js/common.js"></script>
+	      <script type="text/javascript">
+               
+
+
+	          $(function(){
+                   $('.blur').focus(function(){
+                      $(this).addClass('reg_select')
+                   })
+                   $('.blur').blur(function(){
+                      $(this).removeClass('reg_select')
+                   })
+                   $('.reg-btn').click(function(){
+
+          		     var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/; 
+					if(!myreg.test($("#username_i").val())) 
+					{ 
+					    tip('请输入有效的手机号码！'); 
+					    return false; 
+					}else{
+                              
+                              var pho = $("input[name='u']").val();
+                  		    $.post('__APP__/index.php?s=Login/setmsg',{
+                  		    	pho:pho},function(data){
+                  		    	if(data==1){
+                  		    		tip('手机验证码发送成功！');	
+                  		    	}
+                  		    	else{
+                  		    		tip(data);
+                  		    	}
+                  		    });	
+                  		  settime(this);
+					} 
+                    })
+
+                   $('#password_i').onlyNumAlpha();//只能输入数字和英文
+                   $('#submit').click(function(){
+                   	   var user = $('#username_i').val();
+                   	   var code = $('#code_i').val();
+                   	   var pas = $('#password_i').val();
+                   	   if(user == 0){
+                   	   	 return tip('请输入用户名/手机号');
+                   	   }
+                   	   if(code < 6){
+                   	   	 return  tip('您输入的验证码不正确');
+                   	   }
+                   	   if(pas < 6  ){
+                   	   	 return tip('请输入正确的密码');
+                   	   }
+
+                   	   $.ajax({
+			                cache: true,
+			                type: "POST",
+			                url:"__APP__/index.php?s=Login/reg",
+			                data:$('#regster').serialize(),// 你的formid
+			                async: false,
+			                error: function(request) {
+			                    tip('发生错误了！')
+			                },
+			                success: function(data) {
+			                    if(data==1){
+			                    	setTimeout(userdata,1000);
+			                    	tip('注册成功');
+			                    }else tip(data);
+			                }
+			         });
+                   	   return true
+                   })
+	          });
+function userdata(){
+	window.location.href= '__APP__/index.php?s=Me/data_name/type/1';
+}
+	      </script>
+<include file="Public:ios_see_footer" />   
+

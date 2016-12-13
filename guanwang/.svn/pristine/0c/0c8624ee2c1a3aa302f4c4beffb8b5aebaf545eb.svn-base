@@ -1,0 +1,38 @@
+<div class="box"><div class="b1 catlist">
+<h3><span><a href="">更多>></a></span><b>产品分类</b><em>Product</em></h3>
+<YP:nav  catid="4" level="2" id="catlist" />
+</div></div>
+
+<div class="h10"></div>
+<div class="box"><div class="b1 contact">
+<h3><span><a href="">更多>></a></span><b>联系我们</b><em>contact</em></h3>
+<ul>
+<li><label>电 &nbsp;&nbsp;话:</label>{$site_tel}</li>
+<li><label>手 &nbsp;&nbsp;机:</label>{$site_mobile}</li>
+<li><label>联系人:</label>刘建勋</li>
+<li><label>邮 &nbsp;&nbsp;箱:</label>{$site_email}</li>
+<li><label>网 &nbsp;&nbsp;址:</label>{$site_url}</li>
+<li><label>地 &nbsp;&nbsp;址:</label>{$site_address}</li>
+</ul>
+</div></div>
+
+<div class="h10"></div>
+
+<div class="box"><div class="b1 links">
+<h3><span></span><b>友情链接</b><em>links</em></h3>
+<div class="h10"></div>
+
+<ul class="pic">
+<YP:link  typeid="2"  linktype="2" >
+<li><a href="{$r['siteurl']}" target="_blank" title="{$r['name']}"><img src="{$r['logo']}" alt="{$r['name']}"></a></li> 
+</YP:link>
+</ul>
+<ul class="txt"> 
+<YP:link    linktype="1"  >
+<li><a href="{$r['siteurl']}" target="_blank" title="{$r['name']}">{$r['name']}</a></li> 
+</YP:link>
+</ul>
+<div class="h10"></div>
+</div></div>
+<div class="c"></div>
+<div class="h10"></div>

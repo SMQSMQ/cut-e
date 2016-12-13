@@ -1,0 +1,39 @@
+<include file="Home:header" />
+
+
+<div class="left" style="border:none;">
+
+	<div class="icontact">
+	<img src="../Public/images/cpbox.jpg" >
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Yourphp网站管理系统,是一款完全开源免费的PHP+MYSQL系统.核心采用了Thinkphp框架等众多开源软件,同时核心功能也作为开源软件发布。  集众多开源项目于一身的特点,使本系统从安全,效率,易用及可扩展性上更加突出.程序内置SEO优化机制，使企业网站更容易被推广.拥有企业网站常用的模块功能（企业简介模块、新闻模块、产品模块、下载模块、图片模块、招聘模块、在线留言、友情链接、会员与权限管理）。
+	</div>
+
+	<div class="h10"></div>
+	<div class="iProduct">
+	<h2><span><a href="{$Categorys['4']['url']}">更多>></a></span><b>{$Categorys['4']['catname']}</b></h2>
+	<ul class="pic">
+		<YP:list order="id desc" catid="4" limit="10">
+				<li><span><a href="{$r.url}" target="_blank"><img src="{$r['thumb']|thumb}"></a></span><a href="{$r.url}" target="_blank">{$r.title}</a></li>
+		</YP:list> 
+	</ul></div>
+
+
+	<div class="h10"></div>
+	<div class="inews">
+	<h2><span><a href="{$Categorys['1']['url']}">更多>></a></span><b>{$Categorys[1]['catname']}</b></h2>
+	<div class="ilist"><ul class="txt">
+	
+		<YP:list name="Article" order="id desc" catid="1" limit="12">
+					<li><a href="{$r.url}" target="_blank">{$r.title}</a></li>
+		</YP:list> 
+		</ul>
+	</div></div>
+</div>
+
+<div class="right">
+	<include file="Home:right" />
+</div>
+ 
+
+
+<include file="Home:footer" />

@@ -1,0 +1,27 @@
+var cuteyep = "dyapp:dy:";
+function disp_page(str)
+  {
+      var url=cuteyep+str;
+      document.location = url;
+  }
+
+
+function wx(title,con,pic,u)
+{
+	var u=cuteyep+"wx_fx_find:"+title+":"+pic+":"+con+":"+u;
+	document.location = u;
+}
+
+function qq(title,con,pic,u)
+{
+	var u=cuteyep+":qq:"+title+":"+con+":"+pic+":"+u;
+	document.location = u;
+}
+/**
+ * 分享给好友
+ */
+function fenxiang_find(str){
+	document.location = cuteyep+'share:'+str;
+}
+
+

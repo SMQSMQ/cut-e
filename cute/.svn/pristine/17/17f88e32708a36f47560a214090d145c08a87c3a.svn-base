@@ -1,0 +1,153 @@
+<include file="Public:header" />
+
+    <style type="text/css">
+
+
+
+.confot {
+    padding-top: 5px;
+    height: 25px;
+    padding-bottom: 3px;
+}
+.confot img{height:25px; display:inline-block; border: none;}
+
+.zan-select{ background: #999;}
+
+    </style>
+          <div>
+               <div class="wplcn-t" style="background: url({$see.cover}) no-repeat 50% 50%; background-size: cover;">
+
+                    <div class="wplcn-fd" style=" z-index: 2;">
+                          <div class="wplcn-fdic" id="follow">
+                                <p class="wplcn-fdico confot" >
+                                      <i ><img src="__APP__/public/images/focus.svg"> </i>
+                                      <i style=" display:none;"><img src="__APP__/public/images/focus-filled.svg"> </i>
+                                </p>
+                                <p style="font-size:10px">{$see.is_gz}关注</p>
+                          </div>
+                          <div class="wplcn-fdic"  onclick="myInterfaceName.card('http://www.cuteyep.com/app/index.php?s=Diy/greeting_card3_opp/id/{$see.id}')" >
+                                <p class="wplcn-fdico confot" ><img src="__APP__/public/images/view.svg"> </p>
+                                <p style="font-size:10px">浏览</p>
+                          </div>
+                          <div class="wplcn-fdic">
+                                <p class="confot"><img src="__APP__/public/images/share.svg"> </p>
+                                <p style="font-size:10px" onclick="myInterfaceName.sys_Share('{$see.cover}')">分享</p>
+                          </div>
+
+                    </div>
+              </div>
+
+          </div>
+          <div class="wplcn-bg">
+                  <div class="wplcn-t1">{$see.title}</div>
+                  <div class="wplcn-t2">{$see.memo}</div>
+                  <div class="wplcn-t3">浏览数：<span style=" color: #f00">{$see.pv}</span>次</div>
+          </div>
+
+          <span class="wplcn-share" onclick="myInterfaceName.weixin_fenxiang('http://www.cuteyep.com/h5/index.php?s=Index/greeting_card_con/id/{$see.id}','{$see.title}','{$see.memo}','{$see.cover}',0)"><img src="__APP__/public/images/weixin.svg" style="height:45px; display:block;"></span>
+          <span class="wplcn-share" onclick="myInterfaceName.qq_Share('{$see.title}','{$see.memo}','http://www.cuteyep.com/h5/index.php?s=Index/greeting_card_con/id/{$see.id}','{$see.cover}')"><img src="__APP__/public/images/qq.svg" style="height:45px; display:block;"></span>
+          <span class="wplcn-share" onclick="myInterfaceName.share_Text('{$see.title}','{$see.memo}http://www.cuteyep.com/h5/index.php?s=Index/greeting_card_con/id/{$see.id}')"><img src="__APP__/public/images/more.svg" style="height:45px; display:block;"></span>
+          <div class="expbtn" style=" margin-top: 20px;">
+               <span class="zan" id="">赞</span>
+               <span style=" display:none;">发送给好友</span>
+               <span  style="display:none;" onclick="myInterfaceName.auto_see('http://www.cuteyep.com/app/index.php?s=Diy/greeting_card0')">我要制作</span>
+          </div>
+          <div class="expzan">
+                <span>收到的赞</span>
+                <div class="expzan-im">
+                         <volist name="slist" id="vo" empty='$empty'>
+                         <span class="expzan-hd"><img src="{$vo.pic}" class="img"></span>
+                         </volist>
+                         <i class=" expzan-mor" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Index/like_list/id/{$see.id}/t/2')">{$count}</i>
+                </div>
+          </div>
+
+          <div class="wplcn-tit2">相关语音贺卡推荐</div>
+          <div style=" padding: 0px 10px 10px 10px;" >
+                   <volist name="list" id="vo" empty="$empty">
+                   <div class="hm-cn-list" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Index/greeting_card_con/id/{$vo.id}')">
+                         <div><img src="{$vo.cover}" class="hm-cn-listi"></div>
+                         <div class="hm-cn-listx">
+                            <p>{$vo.title}</p>
+                            <p>点击数{$vo.pv}次</p>
+                         </div>
+                     </div>
+                     </volist>
+                     <div class="cb"></div>
+          </div>
+          <script src="__APP__/public/js/common.js"></script>
+          <script type="text/javascript">
+                  //赞
+                  var zani = 1;
+                  $('.zan').click(function(){
+                       zani= 2;
+
+                       var id = '{$see.id}';
+                       var  url = 'http://www.cuteyep.com__APP__/index.php?s=Login';
+                       $.post('__APP__/index.php?s=Index/is_zan',{id:id,type:2},function(data){
+
+                         if(data=='') myInterfaceName.see(url);
+                         else if(data=='-1') return tip('已赞过了！');
+                         else{
+                               $('.zan').addClass('zan-select');//赞成功了
+                               $('.zan').html('已赞');
+                        }
+                       });
+                  });
+
+                  var niceShow= {$see.is_zan};
+                  if(niceShow == 0){
+                     $('.zan').html('赞');
+                  }else{
+                     $('.zan').html('已赞');
+                  }
+
+
+
+                  //赞人数超过100显示99+
+
+                  var niceM= '{$count}';
+                  if(niceM > 100){
+                      $('.expzan-mor').html('99+')
+                  }
+                  if(niceM == 0){
+                      $('.expzan-mor').hide();
+                  }
+
+
+                  //关注
+
+                  var is_gz = '{$see.is_gz}';
+                  if(is_gz == 0){
+                         $('#follow').find('p').eq(1).html('关注');
+                         $('#follow i').eq(1).hide();
+                         $('#follow i').eq(0).show();
+
+                  }else{
+                            $('#follow').find('p').eq(1).html('已关注');
+                            $('#follow i').eq(0).hide();
+                            $('#follow i').eq(1).show();
+                  }
+
+
+                  var followi = 1;
+                  $('#follow').click(function(){
+                       followi= 2;
+                       var id = '{$see.id}';
+                       var  url = 'http://www.cuteyep.com__APP__/index.php?s=Login';
+                       $.post('__APP__/index.php?s=Index/is_guanzhu',{id:id,type:2},function(data){
+                         if(data=='') myInterfaceName.see(url);
+                         else if(data=='-1') return tip('已关注过了！');
+                         else{
+                         $('#follow').addClass('follow-select');//赞成功了
+                            $('#follow').find('p').eq(1).html('已关注');
+                            $('#follow i').eq(0).hide();
+                            $('#follow i').eq(1).show();
+                        }
+                       });
+
+                  })
+
+
+                  </script>
+<include file="Public:see_footer" />

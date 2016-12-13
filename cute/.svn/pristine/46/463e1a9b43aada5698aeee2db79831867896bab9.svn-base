@@ -1,0 +1,576 @@
+<?php
+namespace Home\Controller;
+use Think\Controller;
+class IndexController extends Controller {
+    public function index(){
+    	//广告图
+    	$ads = D('ads');
+    	$ad_list = $ads->where('ad_type=4')->order('id desc')->find();
+    	$ad_list['pics'] = json_decode($ad_list['pics'],true);
+
+    	$ad_list['pic'] = $ad_list['pics'][0]['url'];
+    	$this->assign('ad',$ad_list);
+
+    	//焦点图
+    	$ba_list = $ads->where('ad_type=1')->order('id desc')->select();
+    	foreach ($ba_list as $key=>$ba){
+    		$pics =  json_decode($ba['pics'],true);
+    		$ba_list[$key]['pics'] = $pics[0]['url'];
+    	};
+    	$this->assign('ba_list',$ba_list);
+      //首页头部广告=>4
+      $ad_list = $ads->where('ad_type=2')->order('id desc')->find();
+    	$ad_list['pics'] = json_decode($ad_list['pics'],true);
+
+    	$ad_list['pic'] = $ad_list['pics'][0]['url'];
+    	$this->assign('ad2',$ad_list);
+
+    	$ad_list = $ads->where('ad_type=3')->order('id desc')->find();
+    	$ad_list['pics'] = json_decode($ad_list['pics'],true);
+
+    	$ad_list['pic'] = $ad_list['pics'][0]['url'];
+    	$this->assign('ad3',$ad_list);
+
+
+    	//表情
+    	$Emotion = D('Emotion');
+    	$elist = $Emotion->limit(4)->select();
+    	$this->assign('elist', $elist);
+    	//语音贺卡
+    	$voice_card = D('voice_card');
+    	$vlist = $voice_card->where('user_type=0')->order('id desc')->limit(4)->select();
+    	$this->assign('vlist', $vlist);
+    	//壁纸
+    	$Album = D('Album');
+    	$alist = $Album->limit(4)->select();
+    	$this->assign('alist', $alist);
+    	$this->assign('title', '首页');
+    	$this->display(isset($_GET['type'])?'ios_index':'');
+    }
+    /**
+     * 壁纸
+     */
+    public function wallpaper(){
+    	//分类
+    	$page = 8;
+    	$p = isset($_GET['p'])?$_GET['p']:1;
+    	$class = M('Class');
+    	$fl = $class->where('cid=0')->page($p.','.$page)->select();
+    	$this->assign('fl', $fl);
+    	//推荐
+    	$Album = D('Album');
+    	$list = $Album->order('orderby desc')->page($p.','.$page)->select();
+    	$this->assign('list', $list);
+    	//人气
+    	$rq_list = $Album->order('pv desc')->page($p.','.$page)->select();
+    	$this->assign('rq_list', $rq_list);
+    	//最新
+    	$new_list = $Album->order('id desc')->page($p.','.$page)->select();
+    	$this->assign('new_list', $new_list);
+    	//获取tag
+    	$Tag = M('Tag');
+    	$tag_list = $Tag->where('tag_class=1')->select();
+    	foreach ($tag_list as $key=>$z){
+    		$list = $Album->where('cid='.$z['id'])->page($p.','.$page)->select();//将一个分类下的所有内容查找出；
+    		$tag_list[$key]['list'] = $list;
+    	}
+    	$this->assign('tag_list', $tag_list);//所有分类下的所有内容
+    	$this->assign('empty','<span class="empty">暂无内容</span>');
+    	$this->assign('title', '壁纸');
+    	$this->display(isset($_GET['type'])?'ios_wallpaper':'');
+    }
+
+
+    /**
+     * 壁纸列表
+     */
+    public function wallpaper_list(){
+    	$class = M('Class');
+    	$fl = $class->where('id='.$_GET['id'])->find();
+    	$this->assign('fl', $fl);
+    	//获取分类列表
+    	$Album = D('Album');
+    	$list = $Album->where('class_id='.$_GET['id'])->order('id desc')->select();
+    	$this->assign('list', $list);
+    	$this->assign('title', $fl['title']);
+
+    	$this->assign('empty','<span class="empty">暂无内容</span>');
+    	$this->display(isset($_GET['type'])?'ios_wallpaper_list.html':'');
+
+
+
+      // echo json_encode($list);
+
+    }
+
+    /**
+     * 壁纸异步加载
+     */
+
+     public function wallpaper_data(){
+
+    	//获取tag
+    	$Tag = M('Tag');
+    	$tag_list = $Tag->where('tag_class=1')->select();
+
+    	$page = 8;
+    	$p = isset($_GET['p'])?$_GET['p']:1;
+    	$tab_id=isset($_GET['tab_id'])?$_GET['tab_id']:-3;
+
+    	foreach ($tag_list as $key =>$value){
+    		$tag_id[]=$tag_list[$key]['id'];
+    	}
+
+    	$Album = D('Album');
+
+    	//分类
+    	if ($tab_id==-3){
+        		$class = M('Class');
+    			$list = $class->where('cid=0')->select();
+    		}
+    	//推荐
+    	if ($tab_id==0){
+    		$list = $Album->order('orderby desc')->select();
+    	}
+    	//人气
+    	if ($tab_id==-1){
+    		$list = $Album->order('pv desc')->select();
+    	}
+
+    	//最新
+    	if ($tab_id==-2){
+    		$list = $Album->order('id desc')->select();
+    	}
+    	//获取tag
+
+    	foreach ($tag_id as $z){
+
+    		if ($tab_id==$z){
+    			$list = $Album->where('cid='.$z)->select();
+    		}
+    	}
+
+
+	echo json_encode($list);
+
+    }
+    /**
+     * 表情
+     */
+    public function expression(){
+
+    	$Emotion = D('Emotion');
+
+    	$list = $Emotion->order('orderby desc')->select();
+    	$this->assign('list', $list);
+    	//人气
+    	$rq_list = $Emotion->order('pv desc')->select();
+    	$this->assign('rq_list', $rq_list);
+    	//最新
+    	$new_list = $Emotion->order('id desc')->select();
+    	$this->assign('new_list', $new_list);
+    	//获取tag
+    	$Tag = M('Tag');
+    	$tag_list = $Tag->where('tag_class=2')->select();
+    	foreach ($tag_list as $key=>$z){
+    		$list = $Emotion->where('cid='.$z['id'])->select();
+    		$tag_list[$key]['list'] = $list;
+    	}
+    	$this->assign('tag_list', $tag_list);
+    	$this->assign('empty','<span class="empty">暂无内容</span>');
+
+    	$this->assign('title', '表情');
+    	$this->display(isset($_GET['type'])?'ios_expression':'');
+    }
+    /**
+     * 表情异步加载
+     */
+    public function expression_data(){
+
+   	//获取tag
+	    	$Tag = M('Tag');
+	    	$tag_list = $Tag->where('tag_class=2')->select();
+        	foreach ($tag_list as $key =>$value){
+    		$tag_id[]=$tag_list[$key]['id'];
+
+    				}
+
+	    	$Emotion = D('Emotion');
+    		$page = 8;
+    		$p = isset($_GET['p'])?$_GET['p']:1;
+ 			$tab_id=isset($_GET['tab_id'])?$_GET['tab_id']:0;
+    		//推荐
+    		if ($tab_id==0){
+
+    		$list = $Emotion->order('orderby desc')->select();
+
+    		}
+    		//人气
+			if ($tab_id==-1){
+    		$list = $Emotion->order('pv desc')->select();
+				}
+
+
+    		//最新
+				if ($tab_id==-2){
+    		$list = $Emotion->order('id desc')->select();
+				}
+    		//获取tag
+
+    		foreach ($tag_id as $z){
+    			if ($tab_id==$z){
+    			$list = $Emotion->where('cid='.$z)->select();
+    					}
+			}
+
+	echo json_encode($list);
+
+   }
+    /**
+     * 语音贺卡
+     */
+
+    public function greeting_card(){
+    	$Emotion = D('voice_card');
+    	$where['user_type'] = 0;
+    	$list = $Emotion->where($where)->order('orderby desc')->limit(8)->select();
+    	$this->assign('list', $list);
+    	//人气
+    	$rq_list = $Emotion->where($where)->order('pv desc')->select();
+    	$this->assign('rq_list', $rq_list);
+    	//最新
+    	$new_list = $Emotion->where($where)->order('id desc')->select();
+    	$this->assign('new_list', $new_list);
+    	//获取tag
+    	$Tag = M('Tag');
+    	$tag_list = $Tag->where('tag_class=3')->select();
+    	foreach ($tag_list as $key=>$z){
+    		$list = $Emotion->where($where)->where('cid='.$z['id'])->select();
+    		$tag_list[$key]['list'] = $list;
+    	}
+    	$this->assign('tag_list', $tag_list);
+    	$this->assign('empty','<span class="empty">暂无内容</span>');
+    	$this->assign('title', '语音贺卡');
+    	$this->display(isset($_GET['type'])?'ios_greeting_card':'');
+    }
+        /**
+     * 语音贺卡异步加载
+     */
+
+    public function greeting_card_data(){
+
+    	//获取tag
+ 		$Tag = M('Tag');
+    	$tag_list = $Tag->where('tag_class=3')->select();
+
+    	$page = 8;
+    	$p = isset($_GET['p'])?$_GET['p']:1;
+    	$tab_id=isset($_GET['tab_id'])?$_GET['tab_id']:0;
+
+    	foreach ($tag_list as $key =>$value){
+    		$tag_id[]=$tag_list[$key]['id'];
+    	}
+
+ 	 	$voice_card = D('voice_card');
+
+    	//推荐
+    	if ($tab_id==0){
+    		$list = $voice_card->order('orderby desc')->select();
+    	}
+    	//人气
+    	if ($tab_id==-1){
+    		$list = $voice_card->order('pv desc')->select();
+    	}
+
+    	//最新
+    	if ($tab_id==-2){
+    		$list = $voice_card->order('id desc')->select();
+    	}
+    	//获取tag
+
+    	foreach ($tag_id as $z){
+
+    		if ($tab_id==$z){
+    			$list = $voice_card->where('cid='.$z)->select();
+
+    		}
+
+    	}
+
+	echo json_encode($list);
+
+    }
+
+    /**
+     * 我
+     */
+    public function me(){
+    	if(isset($_COOKIE[md5('cute')])){
+    		$a = unserialize($_COOKIE[md5('cute')]);
+    		if($a['user_name']=='') $a['user_name'] = '设置昵称';
+    	}else                     $a['user_name'] = '登录';
+    	$this->assign('see', $a);
+    	$this->assign('title', '我');
+    	$this->display(isset($_GET['type'])?'ios_me':'');
+    }
+    /**
+     * 搜索
+     */
+
+    public function search(){
+    	if(isset($_GET['wd'])){
+    		$map['title']  = array('like','%'.$_GET['wd'].'%');
+    		$road = D('emotion');
+    		$list = $road->where($map)->select();
+    		$road = D('voice_card');
+    		$list2 = $road->where($map)->select();
+    		$road = D('album');
+    		$list1 = $road->where($map)->select();
+    	}
+    	$this->assign('list', $list);
+    	$this->assign('list1', $list1);
+    	$this->assign('list2', $list2);
+    	$this->assign('title', '搜索');
+    	$this->assign('empty','<span class="empty">暂无内容</span>');
+    	$this->display(isset($_GET['type'])?'ios_search':'');
+    }
+    /**
+     * 壁纸内容
+     */
+    public function wallpaper_con(){
+    	$Album = D('Album');
+    	$see = $Album->where('id='.$_GET['id'])->find();
+    	$see['pics'] = json_decode($see['pics']);
+    	$Focus = D('Focus');
+    	$id = getuser();
+    	$wf['uid'] = $id['user_id'];
+    	$wf['type'] = 1;
+    	$wf['cid'] = $_GET['id'];
+    	$f = $Focus->where($wf)->find();
+    	if($f) $see['is_gz'] = 1;
+    	else   $see['is_gz'] = 0;
+    	//$this->assign('see', $see);
+    	//相关分类
+    	$Class = D('Class');
+    	$clist = $Class->where('id in ('.$see['re_class'].')')->select();
+    	$this->assign('clist', $clist);
+    	//相关壁纸
+    	$list = $Album->where('id in ('.$see['re_album'].')')->select();
+    	$this->assign('list', $list);
+    	//赞
+    	$like = D('like');
+    	$slist = $like->where('targetid='.$_GET['id'].'&&type=1')->limit(3)->order('id desc')->select();
+    	$count = $like->where('targetid='.$_GET['id'].'&&type=1')->count();
+    	$user = D('user');
+    	foreach ($slist as $key=>$z){
+    		$s = $user->where('id='.$z['uid'])->find();
+    		$slist[$key]['pic'] = $s['cover']==''?'http://www.cuteyep.com/app/public/images/cute-logo.png':$s['cover'];
+    	}
+    	$this->assign('slist', $slist);
+    	$this->assign('count', $count);
+    	$wf2['uid'] = $id['user_id'];
+    	$wf2['type'] = 1;
+    	$wf2['targetid'] = $_GET['id'];
+    	$f = $like->where($wf2)->find();
+    	if($f) $see['is_zan'] = 1;
+    	else   $see['is_zan'] = 0;
+    	$this->assign('see', $see);
+    	$this->assign('empty','<span class="empty">暂无</span>');
+    	$this->assign('title', '壁纸详情');
+    	$this->display(isset($_GET['type'])?'ios_wallpaper_con':'');
+    }
+    /**
+     * 表情内容
+     */
+    public function expression_con(){
+    	$Emotion = D('Emotion');
+    	$see = $Emotion->where('id='.$_GET['id'])->find();
+    	$see['pics'] = json_decode($see['pics']);
+    	$Focus = D('Focus');
+    	$id = getuser();
+    	$wf['uid'] = $id['user_id'];
+    	$wf['type'] = 0;
+    	$wf['cid'] = $_GET['id'];
+    	$f = $Focus->where($wf)->find();
+    	if($f) $see['is_gz'] = 1;
+    	else   $see['is_gz'] = 0;
+
+    	//相关表情
+    	$bq_id = json_decode($see['re_emotion']);
+    	$list = $Emotion->where('id in ('.implode(',', $bq_id).')')->select();
+    	$this->assign('list', $list);
+    	//赞
+    	$like = D('like');
+    	$slist = $like->where('targetid='.$_GET['id'].'&&type=0')->limit(3)->order('id desc')->select();
+    	$count = $like->where('targetid='.$_GET['id'].'&&type=0')->count();
+    	$user = D('user');
+    	foreach ($slist as $key=>$z){
+    		$s = $user->where('id='.$z['uid'])->find();
+    		$slist[$key]['pic'] = $s['cover']==''?'http://www.cuteyep.com/app/public/images/cute-logo.png':$s['cover'];
+    	}
+    	$wf2['uid'] = $id['user_id'];
+    	$wf2['type'] = 0;
+    	$wf2['targetid'] = $_GET['id'];
+    	$f = $like->where($wf2)->find();
+    	if($f) $see['is_zan'] = 1;
+    	else   $see['is_zan'] = 0;
+    	$this->assign('see', $see);
+    	$this->assign('slist', $slist);
+    	$this->assign('count', $count);
+    	$this->assign('empty','<span class="empty">暂无内容</span>');
+    	$this->assign('title', '表情详情');
+    	$this->display(isset($_GET['type'])?'ios_expression_con.html':'');
+    }
+    /**
+     * 语音贺卡内容
+     */
+    public function greeting_card_con(){
+    	$Voice_card = D('Voice_card');
+    	$see = $Voice_card->where('id='.$_GET['id'])->find();
+    	$see['pics'] = json_decode($see['pics']);
+    	$Focus = D('Focus');
+    	$id = getuser();
+    	$wf['uid'] = $id['user_id'];
+    	$wf['type'] = 2;
+    	$wf['cid'] = $_GET['id'];
+    	$f = $Focus->where($wf)->find();
+    	if($f) $see['is_gz'] = 1;
+    	else   $see['is_gz'] = 0;
+
+    	//相关表情
+    	$list = $Voice_card->where('id in ('.$see['re_voice'].')')->select();
+    	$this->assign('list', $list);
+    	$this->assign('empty','<span class="empty">暂无</span>');
+
+    	//赞
+    	$like = D('like');
+    	$slist = $like->where('targetid='.$_GET['id'].'&&type=2')->limit(3)->order('id desc')->select();
+    	$count = $like->where('targetid='.$_GET['id'].'&&type=2')->count();
+    	$user = D('user');
+    	foreach ($slist as $key=>$z){
+    		$s = $user->where('id='.$z['uid'])->find();
+    		$slist[$key]['pic'] = $s['cover']==''?'http://www.cuteyep.com/app/public/images/cute-logo.png':$s['cover'];
+    	}
+    	$wf2['uid'] = $id['user_id'];
+    	$wf2['type'] = 2;
+    	$wf2['targetid'] = $_GET['id'];
+    	$f = $like->where($wf2)->find();
+    	if($f) $see['is_zan'] = 1;
+    	else   $see['is_zan'] = 0;
+    	$this->assign('slist', $slist);
+    	$this->assign('count', $count);
+    	$this->assign('see', $see);
+    	$this->assign('title', '语音贺卡详情');
+    	$this->display(isset($_GET['type'])?'ios_greeting_card_con.html':'');
+    }
+
+
+    /**
+     * 网络
+     */
+    public function iswork(){
+    	echo 1;
+    }
+    /**
+     * 关注
+     */
+    public function is_guanzhu(){
+    	$id = getuser();
+    	if($id['user_id']>0){//写入
+    		$focus = D('focus');
+    		$see = $focus->where('uid='.$id['user_id'].'&&cid='.$_POST['id'].'&&type='.$_POST['type'])->find();
+    		if($see){
+    			echo -1;
+    			exit();
+    		}
+    		$data['uid'] = $id['user_id'];
+    		$data['cid'] = $_POST['id'];
+    		$data['type'] = $_POST['type'];
+    		$data['add_time'] = time();
+    		$aid = $focus->add($data);
+    	}
+    	echo $id['user_id'];
+    }
+    /**
+     * 赞
+     */
+    public function is_zan(){
+    	$id = getuser();
+    	if($id['user_id']>0){//写入
+    		$focus = D('like');
+    		$see = $focus->where('uid='.$id['user_id'].'&&targetid='.$_POST['id'].'&&type='.$_POST['type'])->find();
+    		if($see){
+    			echo -1;
+    			exit();
+    		}
+    		$data['uid'] = $id['user_id'];
+    		$data['targetid'] = $_POST['id'];
+    		$data['type'] = $_POST['type'];
+    		$data['add_time'] = time();
+    		$aid = $focus->add($data);
+    	}
+    	echo $id['user_id'];
+    }
+    /**
+     * 下载
+     */
+    public function is_down(){
+    	$id = getuser();
+    	if($id['user_id']>0){//写入
+    		$focus = D('down');
+    		$see = $focus->where('uid='.$id['user_id'].'&&targetid='.$_POST['id'].'&&type='.$_POST['type'])->find();
+    		if($see){
+    			echo -1;
+    			exit();
+    		}
+    		$data['uid'] = $id['user_id'];
+    		$data['targetid'] = $_POST['id'];
+    		$data['type'] = $_POST['type'];
+    		$data['add_time'] = time();
+    		$aid = $focus->add($data);
+    	}
+    	echo $id['user_id'];
+    }
+    /**
+     * 赞列表
+     */
+    public function like_list(){
+
+    	$like = D('like');
+    	$list = $like->where('targetid='.$_GET['id'].'&&type='.$_GET['t'])->order('id desc')->select();
+    	$user = D('user');
+    	foreach ($list as $key=>$z){
+    		$see = $user->where('id='.$z['uid'])->find();
+    		$list[$key]['cover'] = $see['cover']=='http://www.cuteyep.com/app/public/images/cute-logo.png'?'':$see['cover'];
+    		$list[$key]['name'] = $see['nickname'];
+    	}
+    	$this->assign('list', $list);
+    	$this->assign('empty','<span class="empty">还没收到赞</span>');
+    	$this->assign('title', '全部赞');
+    	$this->display(isset($_GET['type'])?'ios_like_list.html':'');
+    }
+
+    /**
+     * auto页面自定义
+     */
+    public function auto_page(){
+    	$html = file_get_contents($_POST['posturl']);
+    	preg_match("/<body.*?>(.*?)<\/body>/is", $html, $match1);
+    	echo $bodystr = trim($match1[1]);
+    }
+    /**
+     * 自定义
+     */
+    public function wallpaper_con_view(){
+    	$Album = D('Album');
+    	$see = $Album->where('id='.$_GET['id'])->find();
+    	$see['pics'] = json_decode($see['pics']);
+    	$this->assign('see', $see);
+
+    	$this->assign('title', '壁纸查看');
+    	$this->display(isset($_GET['type'])?'ios_wallpaper_con_view.html':'');
+    }
+
+
+
+}

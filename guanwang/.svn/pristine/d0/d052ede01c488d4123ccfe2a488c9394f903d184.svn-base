@@ -1,0 +1,42 @@
+<include file="Home:header" />
+
+<load href="__PUBLIC__/Js/jquery.validate.js"/>
+
+<div class="left">
+		<div class="pos">当前位置: <a href="/">首页</a> > <YP:catpos  catid="$catid" space=" > " /></div>
+
+<style>
+#content {margin:0;line-height:22px;}
+</style>
+<div class="post_box">
+		<form name="myform" id="myform" action="{:U($module_name.'/insert')}" method="post">
+ 		<table cellpadding=0 cellspacing=0 class="table_form"  >
+		<volist name="fields" id="r">
+		<if condition="!empty($r['status']) && $r['ispost']">
+			<tr>
+				<td width="100">{if: $r['required']}<font color="red">*</font>{if:/}{$r.name}</td>
+				<td id="box_{$r['field']}">
+				{$r|getform=$form,###}
+				</td>
+			</tr>
+		</if>
+		</volist>
+		<tr>
+				<td width="100"></td>
+				<td><INPUT TYPE="submit"  value="提交" class="button" >
+		<input TYPE="reset"  value="重置" class="button"></td>
+				</tr>
+		</table>
+
+		
+		</form>
+ </div>
+
+</div>
+<script>
+$('#title').val("{$_GET['title']}");
+</script>
+<div class="right">
+	<include file="Home:right" />
+</div>
+<include file="Home:footer" />

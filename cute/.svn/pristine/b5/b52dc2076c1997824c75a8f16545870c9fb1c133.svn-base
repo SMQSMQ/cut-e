@@ -1,0 +1,22 @@
+<include file="Public:ios_header" />
+ <script src="js/gmu.js"></script>
+         <section>
+              <div class="height:41px;"></div>
+              <div class="follow-lbg" style="display:none;">
+                     <h2>泰迪熊壁纸</h2>
+                     <div>46889555人关注</div>
+              </div>
+              <div>
+                    <volist name="list" id="vo" empty="$empty">
+                     <div class="follow-llist">
+                           <div class="follow-listh">
+                                <img src="{$vo.cover}" onerror="this.src='http://www.cuteyep.com/app/public/images/head.png'">
+                           </div>
+                           <div class="follow-cn">{$vo.name}</div>
+                     </div>
+                    </volist>
+              </div>
+         </section>
+        
+<include file="Public:ios_see_footer" />   
+

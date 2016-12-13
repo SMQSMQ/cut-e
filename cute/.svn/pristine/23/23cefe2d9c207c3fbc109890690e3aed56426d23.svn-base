@@ -1,0 +1,17 @@
+var kk = "dyapp:dy:";
+function disp_page(str)
+  {
+     cmd = "dy";
+      var url=kk+str;
+      document.location = url;
+  }
+
+
+function usedto(methods,title,u,pic,con,type)
+{
+	var url=kk+":methods:"+title+":"+u+":"+pic+":"+con+":"+type;
+	document.location = url;
+}
+
+
+

@@ -1,0 +1,13 @@
+<!doctype html>
+<html>
+	<head>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	    <meta charset="utf-8">
+	    <title>{$title}</title>
+	    <link rel="stylesheet" type="text/css" href="__APP__/public/css/navigator.default.css" />
+	    <link rel="stylesheet" type="text/css" href="__APP__/public/font/iconfont.css">
+	    <link rel="stylesheet" type="text/css" href="__APP__/public/css/common.css">
+      <script src="__APP__/public/js/zepto.js"></script>
+      <script src="__APP__/public/js/ios_public.js"></script>
+	</head>
+	<body>

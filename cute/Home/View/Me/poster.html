@@ -1,0 +1,13 @@
+<include file="Public:header" />
+       
+          <div class="artivle-con">
+          	    <div style=" margin-bottom: 30px; text-align: center;">
+          	       <volist name="ad_list" id="vo">
+	          	    	 <div onclick="myInterfaceName.ad_url('{$vo.ad_url}');"><img src="{$vo.pics}" style="width:100%; height:auto; border: none;"></div>
+	          	    	 <div style=" margin-top: 10px;">{$vo.title}</div>
+          	    	 </volist>
+          	    </div>
+          </div>
+
+<include file="Public:see_footer" />    
+

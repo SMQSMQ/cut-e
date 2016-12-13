@@ -1,0 +1,40 @@
+<include file="Public:header" />
+<link rel="stylesheet" type="text/css" href="__APP__/public/css/navigator.default.css" />
+<script src="__APP__/public/js/gmu.js"></script>
+          <section id="tabs-con">
+                 <!--分类-->
+                 <article class="tabs-atc select">
+                 <div style=" padding: 10px;">
+                         <volist name="list" id="vo">
+                         <div class="hm-cn-list" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Index/wallpaper_con/id/{$vo.id}')">
+                               <div><img src="{$vo.cover}" class="hm-cn-listi"></div>
+                               <div class="hm-cn-listx">
+                                     <p>{$vo.title}</p>
+                                     <p>点击数{$vo.pv}次</p>
+                               </div>
+                         </div>
+                         </volist>
+                         <div class="cb"></div>
+                     </div> 
+                 </article>
+          </section>
+         <div style=" height:80px"></div>
+            
+          <script type="text/javascript">
+              (function(){
+                  var leftBtn = $('.left-fixed .left a'),
+                      nav = $('#nav');
+
+                  nav.navigator().on('select', function(){
+                      leftBtn.removeClass('ui-state-active');
+                  });
+
+                  leftBtn.click(function(){
+                      nav.navigator('unselect');
+                      $(this).addClass('ui-state-active');
+                  });
+              })();
+
+         </script>
+           <include file="Public:see_footer" /> 
+

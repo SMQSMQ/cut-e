@@ -1,0 +1,25 @@
+<include file="Home:header" />
+
+<div class="left">
+		<div class="pos">当前位置: <a href="/">首页</a> > <YP:catpos  catid="$catid" space=" > " /></div>
+		<div class="list">
+		
+		<volist name="list" id="r">
+		<dl class="img">
+		<dd class="pic"><span><a href="{$r.url}" target="_blank"><img src="{$r['thumb']|thumb}" align="absmiddle" ></a></span></dd>
+		<dt><a href="{$r.url}" target="_blank">{$r.title}</a></dt>
+		<dd>类别：{$Categorys[$r[catid]]['catname']}</dd><dd>规格：{$r.xinghao}</dd><dd>价格：<b>{$r.price}元</b></dd>
+		</dl>
+		</volist>
+		</div>
+		
+		<div id="pages" class="page">{$pages}</div>
+		<br>
+</div>
+
+<div class="right">
+	<include file="Home:right" />
+</div>
+
+
+<include file="Home:footer" />

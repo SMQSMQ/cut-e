@@ -1,0 +1,43 @@
+<include file="Public:header" />
+<link rel="stylesheet" type="text/css"  href="http://www.cuteyep.com/app/public/css/common.css">
+          <div class="gcd-view">
+               <img src="{$see.cover}" style=" width:100%;">
+               <!--位置-->
+               <div class="gcd-viewpos">
+                    <ul>
+                         <li class="gcd-viewls">
+                              <p class="iconfont">&#xe613;</p>
+                              <p>保存</p>
+                         </li>
+                         <li class="gcd-viewls av">
+                              <p class="iconfont">&#xe613;</p>
+                              <p>播放</p>
+                         </li>
+                         <li class="gcd-viewls">
+                              <p class="iconfont">&#xe613;</p>
+                              <p>发送给好友</p>
+                         </li>
+                    </ul>
+                    <ul class="cb"></ul>
+               </div>
+          </div>
+          <audio controls="controls"  id="audio">
+					  <source src="{$see2.media_url}" type="audio/ogg" />
+					  <source src="{$see2.media_url}" type="audio/mpeg" />
+					Your browser does not support the audio element.
+					</audio>
+					<script>
+					 
+            $(function(){
+            	var audio ;
+                audio = document.getElementById('audio');
+            	$('.av').click(function(){
+                	audio.play();
+                });
+                $('.av').click();
+            });
+            
+					</script>
+          <script src="__APP__/public/js/common.js"></script>
+<include file="Public:see_footer" />   
+

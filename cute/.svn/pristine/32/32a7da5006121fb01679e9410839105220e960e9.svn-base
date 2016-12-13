@@ -1,0 +1,51 @@
+<include file="Public:ios_header" />
+           <div class="top" >
+                    <a href="clos" class="iconfont top-back">&#xe617;</a>
+                    <div class="top-font">修改昵称</div>
+                    <div class="diy-btn" id="submit-data">保存</div>
+           </div>
+           <div style=" height: 40px;"></div>
+          <section>
+                  <div class="data-innerbg">
+                       
+                        <input name="nickname" maxlength="20" class="data-innertxt" id="data-name" value="{$see.user_name}"></input>
+                        <p class="data-innerf">好的昵称可以让朋友记得你！</p>
+                        
+                  </div>
+          </section>
+          <script src="http://www.cuteyep.com/app/public/js/common.js"></script>
+          <script type="text/javascript">
+          var obj;
+          $.get('http://www.cuteyep.com/app/Me/get_user_data',function(data){
+        	  obj = JSON.parse(data);
+        	  $('#data-name').val(obj.nickname);
+          });
+          $("#submit-data").click(function(){
+                        var dname=$('#data-name').val();
+                        if(dname ==''){
+                        	alert('昵称不能为空');//	myInterfaceName.toast('昵称不能为空');
+                        }else{
+                        	if(obj.nickname==dname){
+                        		alert('当前修改内容没有发生改变');	//myInterfaceName.toast('当前修改内容没有发生改变');
+                        		return false;
+                        	}
+                        	
+                           $.post('http://www.cuteyep.com/app/index.php?s=Me/edit',{nickname:dname},function(data){
+                        	   setTimeout(clos,1000);
+                        	alert('昵称修改成功'); //  myInterfaceName.toast('昵称修改成功');
+                        	   return false;
+                           });
+                        } 
+
+
+                 });
+      
+          </script>
+
+<include file="Public:ios_see_footer" /> 
+
+
+
+
+
+

@@ -1,0 +1,92 @@
+<include file="Public:header" />
+<link rel="stylesheet" type="text/css"  href="http://www.cuteyep.com/app/public/css/common.css">
+       <div style=" position: fixed;left:0px; top: 0px; width:100%; height: 100%;">
+                  <div class="hk_vew">
+                         <img src="{$see['pics'][0]}" style=" width:100%;"  class="mus1">
+                         <img src="{$see['pics'][1]}" style=" width:100%; display:none"  class="mus2">
+                  </div>
+                  <div class="gcd-view">
+                       <!--位置-->
+                       <div class="gcd-viewpos">
+                            <ul>
+
+                                 <li class="gcd-viewls" style="width:33.33333333%;" id="ret" onclick='back();'>
+                                      <p style="padding-top: 5px; height: 25px; overflow: hidden;"><img src="http://www.cuteyep.com/app/public/images/return_1.svg" style="height: 25px;"></p>
+                                      <p style="font-size: 10px; margin-top: 2px">返回</p>
+                                 </li>
+                                 <li class="gcd-viewls" style="width:33.33333333%;">
+                                         <div  class="av">
+                                            <p style="padding-top: 5px; height: 25px; overflow: hidden;"><img src="http://www.cuteyep.com/app/public/images/play_2.svg" style="height: 25px;"></p>
+                                            <p style="font-size: 10px; margin-top: 2px">播放</p>
+                                         </div>  
+                                         <div class="ad" style=" display:none;">
+                                            <p style="padding-top: 5px; height: 25px; overflow: hidden;"><img src="http://www.cuteyep.com/app/public/images/stop_1.svg" style="height: 25px;"></p>
+                                            <p style="font-size: 10px; margin-top: 2px">停止</p>
+                                         </div> 
+                                 </li>
+                                 <li class="gcd-viewls sava" style="width:33.3333333%;" >
+                                      <p style="padding-top: 5px; height: 25px; overflow: hidden;"><img src="http://www.cuteyep.com/app/public/images/send_2.svg" style="height: 25px;"></p>
+                                      <p style="font-size: 10px; margin-top: 2px">发送给好友</p>
+                                 </li>
+
+                            </ul>
+                            <ul class="cb"></ul>
+                       </div>
+                  </div>
+          </div>        
+          <audio controls="controls"  id="audio"  preload="auto"  loop  hidden="ture">
+					  <source src="{$see2.media_url}" type="audio/ogg" />
+					  <source src="{$see2.media_url}" type="audio/mpeg" />
+					Your browser does not support the audio element.
+					</audio>
+          <script src="http://www.cuteyep.com/app/public/js/common.js"></script>
+					<script>
+					     
+              	var audio = document.getElementById('audio');
+              	$('.av').click(function(){
+                  	audio.play();
+                    $('.av').hide();
+                    $('.ad').show();
+                    $('.mus1').hide();
+                    $('.mus2').show();
+                });
+                $('.ad').click(function(){
+                    audio.pause();
+                    $('.ad').hide();
+                    $('.av').show();
+                    $('.mus1').show();
+                    $('.mus2').hide();
+                });
+                $('#ret').click(function(){
+                    audio.pause(); 
+                });
+                $('.top').hide();
+                var mr = 0;
+                $('.hk_vew').click(function(){
+                     if(mr == 0){
+                         $('.gcd-viewpos').animate({bottom:'-50px'},300);
+                         mr = 1;
+                     }else{
+                         $('.gcd-viewpos').animate({bottom:'0px'},300);
+                         mr = 0; 
+                     };
+                });
+                
+                var id='{$see.id}';
+                var title = '{$see.title}';
+                
+                $('.sava').click(function(){
+                	//alert('{$con}{$id}');
+                	myInterfaceName.share_Text(title,title+'http://www.cuteyep.com/app/index.php?s=Diy/greeting_card3_opp/id/'+id);
+                });
+                function clos_back(){
+                   audio.pause();
+                }
+                function back(){
+                	audio.pause();
+                	window.location.href="clos";
+                }
+					</script>
+
+<include file="Public:see_footer" />   
+

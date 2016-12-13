@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CuteYep</title>
+</head>
+<style>
+   html,body,img{
+     width: 100%;
+     overflow-x: hidden;
+   }
+</style>
+<body>
+  <img src="__APP__/public/images/llq.png" alt="">
+
+</body>
+</html>
+
+<script>
+  var tipId = '{$tipid}';
+  if(tipId == 3){
+    window.location.href = 'http://www.cuteyep.com/h5/index.php?s=Index/out';
+  }
+</script>

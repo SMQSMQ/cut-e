@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+	<head>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	    <meta charset="utf-8">
+	    <title>登录</title>
+	    <link rel="stylesheet" type="text/css" href="font/iconfont.css">
+	    <link rel="stylesheet" type="text/css" href="css/common.css">
+        <script src="js/zepto.js"></script>
+	</head>
+	<body>
+           <div class="top">
+                    <div class="iconfont top-back">&#xe617;</div>
+                    <div class="top-font"></div>
+           </div>
+          <div style=" height:41px" ></div>
+          <div class="page"></div>
+  <script>
+  function reok(){
+	  $('.page').html('<iframe name="inte1" id="inte1" src="'+url+'" width="100%" height="auto" frameborder="no" border="0" marginwidth="0" marginheight="0" scrolling="yes" allowtransparency="yes"></iframe>').attr('data-url',url);
+  }
+  </script>
+	</body>
+</html>    
+
+
+
+
+<!doctype html>
+<html>
+	<head>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	    <meta charset="utf-8">
+	    <title>主页</title>
+	    <link rel="stylesheet" type="text/css" href="font/iconfont.css">
+	    <link rel="stylesheet" type="text/css" href="css/common.css">
+      <link rel="stylesheet" type="text/css" href="css/loding.css">
+      <script src="js/zepto.js"></script>
+	</head>
+	<style type="text/css">
+
+	</style>
+	<body>
+  <center class="center ld" style="position:absolute;top:41px;background:#fff;padding-top:20%;text-align:center;width:100%;z-index:9999;"><span class="loading"></span>加载中...</center>
+  <div class="top">
+                    <a href="clos"><div class="iconfont top-back" href="clos">&#xe617;</div></a>
+                    <div class="top-font"></div>
+           </div>
+	<div class="list_page">
+	    <div class="page" style="display:none1;">
+				
+			</div>
+	</div>
+	<script>
+	function title(str){
+		$('.top .top-font').html(str);
+	}
+	</script>
+<script src="js/iframe.js"></script>	  
+	</body>
+</html>    
+

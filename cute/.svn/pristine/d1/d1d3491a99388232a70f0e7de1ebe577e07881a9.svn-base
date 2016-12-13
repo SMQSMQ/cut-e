@@ -1,0 +1,174 @@
+
+<include file="Public:ios_header" />
+ <link rel="stylesheet" href="http://www.cuteyep.com/app/public/css/swiper.min.css">
+<style>
+html{
+  height: 100%;
+}
+    body {
+        position: relative;
+        height: 100%;
+        overflow: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+    body {
+        background: #fff;
+        margin: 0;
+        padding: 0;
+    }
+    .swiper-container{
+        width: 100%;
+        height: 100%;
+    }
+    .swiper-slide {
+        height: auto;
+    }
+    .swiper-container1 {
+        display: block;
+        height:auto;
+        background: #000;
+        overflow: hidden;
+        position: relative;
+    }
+    .swiper-container1 .swiper-slide {
+        text-align: center;
+        background: #f00;
+        overflow: hidden;
+        width: 100% !important;
+        height: 150px;
+    }
+.ad_top{
+      padding: 0 10px 10px 10px;
+      overflow: hidden;
+    }
+    .ad_top img{
+      border-radius: 10px;
+    }
+    .swiper-pagination-bullet{
+      background: none;
+      border: 1px solid #fff;
+      opacity: 1;
+    }
+    .swiper-pagination-bullet.swiper-pagination-bullet-active{
+      background: #fff;
+    }
+    .hm-top{
+      padding-left: 5px;
+    }
+    .hm-cn-listi .express{
+      border-radius: 6px;
+    }
+    </style>
+
+    <div style="width: 100%;position:absolute;top:0;left:0;bottom:50px;overflow:scroll;-webkit-overflow-scrolling: touch;">
+      <div class="swiper-container1" style="<php>if($ba_list=='') echo 'display:none;';</php>">
+        <div class="swiper-wrapper">
+          <volist name="ba_list" id="vo">
+            <div class="swiper-slide"><a onclick="disp_page('{$vo.ad_url}/type/1')"><img src="{$vo.pics}" class="hm-ba"></a></div>
+          </volist>
+        </div>
+        <div class="cb"></div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+      </div>
+
+      <div class="hm-list">
+        <div>
+          <ul>
+            <li class="hm-top">推荐表情</li>
+            <li class="hm-topr">&nbsp</li>
+          </ul>
+          <ul class="cb"></ul>
+        </div>
+        <div class="hm-cn">
+          <volist name="elist" id="vo">
+            <div class="hm-cn-list" onclick="pvUrl.call(this,'http://www.cuteyep.com/app/index.php?s=Index/expression_con/id/{$vo.id}/type/1')">
+              <div><img src="{$vo.cover}" class="hm-cn-listi express"></div>
+              <div class="hm-cn-listx">
+                <p>{$vo.title}</p>
+                <p class="pv">点击数{$vo.pv}次</p>
+              </div>
+            </div>
+          </volist>
+
+          <div class="cb"></div>
+        </div>
+      </div>
+      <div class="hm-gu"><img src="__APP__/public/images/pic1.jpg"></div>
+      <div class="hm-list">
+        <div>
+          <ul>
+            <li class="hm-top">推荐语音贺卡</li>
+            <li class="hm-topr">&nbsp</li>
+          </ul>
+          <ul class="cb"></ul>
+        </div>
+        <div class="hm-cn">
+          <volist name="vlist" id="vo">
+            <div class="hm-cn-list" onclick="pvUrl.call(this,'http://www.cuteyep.com/app/index.php?s=Index/greeting_card_con/id/{$vo.id}/type/1')">
+              <div><img src="{$vo.cover}" class="hm-cn-listi"></div>
+              <div class="hm-cn-listx">
+                <p>{$vo.title}</p>
+                <p class="pv">点击数{$vo.pv}次</p>
+              </div>
+            </div>
+          </volist>
+
+          <div class="cb"></div>
+        </div>
+      </div>
+      <div class="hm-gu"><img src="__APP__/public/images/pic1.jpg"></div>
+      <div class="hm-list">
+        <div>
+          <ul>
+            <li class="hm-top">精选壁纸</li>
+            <li class="hm-topr">&nbsp</li>
+          </ul>
+          <ul class="cb"></ul>
+        </div>
+        <div class="hm-cn">
+          <volist name="alist" id="vo">
+            <div class="hm-cn-list" onclick="pvUrl.call(this,'http://www.cuteyep.com/app/index.php?s=Index/wallpaper_con/id/{$vo.id}/type/1')">
+              <div><img src="{$vo.cover}" class="hm-cn-listi"></div>
+              <div class="hm-cn-listx">
+                <p>{$vo.title}</p>
+                <p class="pv">点击数{$vo.pv}次</p>
+              </div>
+            </div>
+          </volist>
+
+          <div class="cb"></div>
+        </div>
+      </div>
+    </div>
+
+
+    <script src="http://www.cuteyep.com/app/public/js/swiper.min.js"></script>
+    <script>
+
+    var swiper = new Swiper('.swiper-container', {
+        scrollbar: '.swiper-scrollbar',
+        direction: 'vertical',
+        slidesPerView: 'auto',
+        mousewheelControl: true,
+        freeMode: true
+    });
+    //图片滚动的
+    var swiper1 = new Swiper('.swiper-container1', {
+        iOSEdgeSwipeDetection : true,
+        pagination: '.swiper-pagination',
+        paginationClickable: true
+    });
+
+    function pvUrl(url){
+      var pvCount = parseInt($(this).find('.pv').text().substr(3,4));
+      $(this).find('.pv').text('点击数'+(pvCount+1)+'次');
+      disp_page(url);
+    }
+    disp_page('wancheng0');
+    </script>
+
+
+
+
+<include file="Public:ios_footer" />

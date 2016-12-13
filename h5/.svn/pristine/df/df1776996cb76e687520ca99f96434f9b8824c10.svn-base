@@ -1,0 +1,197 @@
+<include file="Public:header" />
+    <style type="text/css">
+.confot {
+    padding-top: 5px;
+    height: 25px;
+    padding-bottom: 3px;
+}
+.confot img{height:25px; display:inline-block; border: none;}
+
+.zan-select{ background: #999;}
+
+#out{
+  text-align:center;
+}
+#out a{
+  display: inline-block;
+  padding: 15px 20px;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -o-border-radius: 15px;
+  -ms-border-radius: 15px;
+  background: #ee436b;
+  color: #fff;
+}
+
+    </style>
+    <!-- <div class="top-fix">
+            <div class="fix-left">
+              <div class="fix-img">
+                <img src="http://www.cuteyep.com/app/public/images/img1.jpg" alt="">
+              </div>
+              <div class="fix-text">
+                <h4>CuteYep有耶</h4>
+                <p>一个可爱的APP</p>
+              </div>
+            </div>
+            <div class="fix-right">
+              <a href="">下载APP</a>
+            </div>
+          </div> -->
+
+<style>
+.top-fix{
+  width: 100%;
+  padding: 10px 15px;
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #fff;
+  z-index: 14;
+}
+.top-fix .fix-left,.top-fix .fix-right{
+  float: left;
+  width: 60%;
+}
+.top-fix .fix-right{
+  width: 40%;
+}
+.top-fix .fix-right{
+  text-align: right;
+  line-height: 40px;
+}
+.fix-img,.fix-text{
+  float: left;
+}
+.fix-img{
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-right: 10px;
+}
+.fix-img img{
+  width: 100%;
+}
+.fix-text h4,.fix-text p{
+  line-height: 20px;
+}
+.fix-text p{
+  color: #ccc;
+  font-size: 12px;
+}
+.fix-right a{
+  padding: 5px 16px;
+  border-radius: 6px;
+  border: 1px solid #eb3a62;
+  color: #eb3a62;
+  text-decoration: none;
+}
+</style>
+          <div class="div">
+            <div>
+              <div class="wplcn-t" style="background: url({$see.cover}) no-repeat 50% 50%; background-size: cover;">
+
+                <div class="wplcn-fd" style=" z-index: 2;">
+                  <div class="wplcn-fdic" id="follow">
+                    <p class="wplcn-fdico confot" >
+                      <i ><img src="__APP__/public/images/focus.svg"> </i>
+                      <i style=" display:none;"><img src="__APP__/public/images/focus-filled.svg"> </i>
+                    </p>
+                    <p style="font-size:10px">{$see.is_gz}关注</p>
+                  </div>
+                  <div class="wplcn-fdic"  onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Diy/greeting_card3_opp/id/{$see.id}')" >
+                    <p class="wplcn-fdico confot" ><img src="__APP__/public/images/view.svg"> </p>
+                    <p style="font-size:10px">浏览</p>
+                  </div>
+                  <div class="wplcn-fdic">
+                    <p class="confot"><img src="__APP__/public/images/share.svg"> </p>
+                    <p style="font-size:10px" onclick="myInterfaceName.sys_Share('{$see.cover}')">分享</p>
+                  </div>
+
+                </div>
+              </div>
+
+            </div>
+            <div class="wplcn-bg">
+              <div class="wplcn-t1">{$see.title}</div>
+              <div class="wplcn-t2" style="line-height:20px;">{$see.memo}</div>
+              <div class="wplcn-t3">浏览数：<span style=" color: #f00">{$see.pv}</span>次</div>
+            </div>
+
+            <div class="wplcn-bg">
+              <span class="wplcn-share" onclick="myInterfaceName.weixin_fenxiang('http://www.cuteyep.com/emotion/view?id={$see.id}','语音贺卡{$see.title}','{$see.memo}','{$see.cover}',1)"><img src="__APP__/public/images/weixin.svg" style="height:45px; display:block;"></span>
+              <span class="wplcn-share" onclick="myInterfaceName.qq_Share('语音贺卡{$see.title}','{$see.memo}','http://www.cuteyep.com/emotion/view?id={$see.id}','{$see.cover}')"><img src="__APP__/public/images/qq.svg" style="height:45px; display:block;"></span>
+              <span class="wplcn-share" onclick="myInterfaceName.sys_Share('{$see.cover}')"><img src="__APP__/public/images/more.svg" style="height:45px; display:block;"></span>
+            </div>
+            <div class="expbtn" style=" margin-top: 20px;">
+              <span class="zan" id="">赞</span>
+              <span >发送给好友</span>
+              <span style=" display:none;" onclick="myInterfaceName.auto_see('http://www.cuteyep.com/app/index.php?s=Diy/greeting_card0')">我要制作</span>
+            </div>
+            <div class="expzan">
+              <span>收到的赞</span>
+              <div class="expzan-im">
+                <volist name="slist" id="vo" empty='$empty'>
+                  <span class="expzan-hd"><img src="{$vo.pic}" class="img"></span>
+                </volist>
+                <i class=" expzan-mor" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Index/like_list/id/{$see.id}/t/2')">{$count}</i>
+              </div>
+            </div>
+
+            <div class="wplcn-tit2">相关语音贺卡推荐</div>
+            <div style=" padding: 0px 10px 10px 10px;" >
+              <volist name="list" id="vo" empty="$empty">
+                <div class="hm-cn-list" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Index/greeting_card_con/id/{$vo.id}')">
+                  <div><img src="{$vo.cover}" class="hm-cn-listi"></div>
+                  <div class="hm-cn-listx">
+                    <p>{$vo.title}</p>
+                    <p>点击数{$vo.pv}次</p>
+                  </div>
+                </div>
+              </volist>
+              <div class="cb"></div>
+            </div>
+          </div>
+
+          <img id="img" src="/h5/public/images/llq.png" alt="" style="width:100%;display:none;">
+          <div id="out" style="display:none;">
+            <img src="/h5/public/images/Icon-120.png" alt="" style="border-radius:6px;margin-top:15px;">
+            <h2 style="margin:20px 0 15px;">打开CuteYep有耶APP</h2>
+          </div>
+
+          <script src="__APP__/public/js/common.js"></script>
+          <script type="text/javascript">
+          //截取两行内容
+          var wplcn_t2 = $('.wplcn-t2').text();
+          if(wplcn_t2.length >= 50){
+            $('.wplcn-t2').text(wplcn_t2.substring(0,49)+'...');
+          }
+
+          var tipId = '{$tipid}';
+          if(tipId == 3){
+            $('#out').show();
+            $('.div,#img').hide();
+            setTimeout(function(){
+              var ifr = document.createElement('iframe');
+              ifr.src = 'dongyuan://cuteyep.com/cy?openId=Index/greeting_card_con/id/{$see.id}';
+              ifr.style.display = 'none';
+              document.body.appendChild(ifr);
+              window.setTimeout(function(){
+                  document.body.removeChild(ifr);
+                  window.location.href="http://a.app.qq.com/o/simple.jsp?pkgname=com.ct.cute";
+              },1000)
+            },2000)
+          }
+          $('.div').click(function(){
+      	    var down=confirm('请先下载CuteYep有耶APP!');
+      		  if(down==true){
+              $('.div').hide();
+              $('#img').show();
+      		  }
+      	});
+
+                  </script>
+<include file="Public:see_footer" />

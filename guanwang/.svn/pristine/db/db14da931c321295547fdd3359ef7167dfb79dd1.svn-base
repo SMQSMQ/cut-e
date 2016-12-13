@@ -1,0 +1,31 @@
+<include file="Home:header" />
+
+<div class="left">
+		<div class="pos">当前位置: <a href="/">首页</a> > <YP:catpos  catid="$catid" space=" > " /></div>
+		<div id="content">
+		<h1>{$title}</h1>
+ 
+		<div class="down_info"><ul>
+		<li><label>软件大小:</label>{$size}</li>
+		<li><label>软件类型:</label>{$ext}</li>
+		<li><label>浏览次数:</label><span id="hits">&nbsp;</span>次</li>
+		<li><label>下载次数:</label><span id="downs">&nbsp;</span>次</li>
+		<li><label>下载地址:</label><a href="./index.php?m={*MODULE_NAME}&a=down&id={$id}">下载</a></li>
+		<li><label>发布时间:</label>{$createtime|toDate=###,'Y-m-d'}</li>
+		</ul></div>
+		<div class="h10"></div>
+		<div class="p_tabs"><ul><li>软件简介</li></ul></div>
+		<div class="h10"></div>
+
+		<div class="content">
+		{$content}
+		</div>
+		</div>
+		<br>
+</div>
+ 
+<div class="right">
+	<include file="Home:right" />
+</div>
+<script language="JavaScript" src="./index.php?m={*MODULE_NAME}&a=hits&id={$id}"></script>
+<include file="Home:footer" />

@@ -1,0 +1,52 @@
+<include file="Public:ios_header" />
+<script src="__APP__/public/js/gmu.js"></script>
+<div style="height:10px;"></div>
+
+         <section>
+                     <div style=" padding: 10px;">
+                           <volist name="list0" id="vo" empty='$empty' >
+                        <div class="hm-cn-list">
+                               <div><img src="{$vo.cover}" class="hm-cn-listi" onclick="disp_page('http://www.cuteyep.com/app/index.php?s=Index/wallpaper_con/id/{$vo.targetid}/type/1')"></div>
+                               <div class="hm-cn-listx">
+                                     <p>{$vo.title}</p>
+                               </div>
+                               <!--取消关注-->
+                               <div class="follow-close" rel="{$vo.id}"></div>
+                         </div>
+                         </volist>
+
+                           <div class="cb"></div>
+                     </div>
+         </section>
+
+          <script type="text/javascript">
+              //tabs
+              $('.metabs span').click(function(){
+
+                  $('.metabs span').each(function(){
+                        $('.metabs span').removeClass('active')
+                  })
+
+                  $(this).addClass('active')
+
+                  var wpIndex =$(this).index();
+                   $('#tabs-con article').each(function(){
+                     $('#tabs-con article').removeClass('select');
+                  })
+                  $('#tabs-con article').eq(wpIndex).addClass('select');
+
+              })
+              //取消表情关注
+
+              $('.hm-cn-list .follow-close').click(function(){
+                   var confm= confirm('您确定要删除此下载记录吗？');
+                   var id = $(this).attr('rel');
+                   if(confm ==true){
+                	   $(this).parent().remove();
+                	     $.post('__APP__/index.php?s=Me/del_down',{id:id},function(){});
+                   }
+              })
+
+
+          </script>
+<include file="Public:ios_see_footer" />

@@ -1,0 +1,12 @@
+<include file="Public:ios_header" />
+
+          <div class="artivle-con">
+          	    <div style=" margin-bottom: 30px; text-align: center;">
+          	       <volist name="ad_list" id="vo">
+	          	    	 <div onclick="disp_page('web:{$vo.ad_url}');"><img src="{$vo.pics}" style="width:100%; height:auto; border: none;"></div>
+	          	    	 <div style=" margin-top: 10px;">{$vo.title}</div>
+          	    	</volist>
+          	    </div>
+          </div>
+
+<include file="Public:ios_see_footer" />

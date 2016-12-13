@@ -1,0 +1,77 @@
+<include file="Home:header" />
+ <load href="../Public/images/order/order.css"/>
+<div class="left">
+		<div class="pos">当前位置: <a href="/">首页</a> > <YP:catpos  catid="$catid" space=" > " /></div>
+	 
+ 
+
+     		<div id="cart_box">
+					
+
+
+
+					
+                    <div class="order_table">
+					<span style="float:right;padding:5px;">创建时间:{$cart['createtime']|toDate=###,'Y-m-d H:i:s'}</span> <span style="float:left;padding:5px;color:#FB0000;">订单编号:{$cart['sn']}</span>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+                          <tr align="center">
+							<th width="15%">商品图片</th>
+                            <th width="35%">商品名称</th>
+                            <th width="10%">单价</th>
+                            <th width="12%">数量</th>
+                            <th width="13%">小计（RMB）</th>
+                            <th>操作</td>
+                          </tr>
+						  <if condition="empty($cart['productlist'])">
+							 <tr align="center">
+							 <td colspan="6"  style="padding:10px;border:0;color:#FB0000;" align="center">您的购物车为空!</td>
+							 </tr>
+						  <else/>
+						  <volist name="cart['productlist']" id="vo">
+                          <tr align="center">
+							<td height="70" style="border-left:none;"><img src="{$vo['thumb']}" width="60" height="60"/></td>
+							<td>{$vo['title']}</td>
+							<td>{$vo['price']}</td>
+							<td>
+							<if condition="$buy">
+							{$vo['num']}
+							<else/>
+							<input type="text" name="num" onchange="changeorder(this,{$vo['id']},'0');" class="num" id="num_{$vo['id']}" value="{$vo['num']}" size="2"/>
+							</if>
+							</td>
+							<td ><span class="count_price" id="count_price_{$vo['id']}">{$vo['countprice']|number_format=###,2}</span></td>
+							<td><a href="javascript:changeorder('','{$vo['id']}','1');"  class="del">删除</a></td>
+						 </tr>
+						 </volist>
+						 </if>
+						</table>
+                    </div>
+                    <div id="prototal">
+      					<span>商品总数：</span><span id="totalnum">{$cart['totalnum']|intval}</span><span> 件，</span>
+                    	<span>总价：</span><span id="totalprice">{$cart['totalprice']|number_format=###,2}</span><span> RMB&nbsp;&nbsp;</span>
+                    </div>
+					<div class="c"></div>
+					<div class="order_userinfo">
+                        <h2>收货人信息</h2>
+                        <ul>
+                        <li><span>姓名：</span>{$cart['realname']} </li>
+						<li><span>电话号码：</span>{$cart['tel']} </li>
+                        <li><span>收货地址：</span>{$cart['address']} </li>
+						<li><span>邮编：</span>{$cart['zipcode']} </li>
+						</ul>
+                    </div>
+					<div class="c"></div>
+
+ 
+					<div class="c"></div>
+					<br>
+			</div>
+		<br>
+</div>
+
+
+<div class="right">
+	<include file="Home:right" />
+</div>
+
+<include file="Home:footer" />

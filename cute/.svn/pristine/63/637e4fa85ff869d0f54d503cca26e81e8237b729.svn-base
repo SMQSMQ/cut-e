@@ -1,0 +1,71 @@
+<include file="Public:header" />
+<script src="__APP__/public/js/gmu.js"></script>
+
+	      <form  action="" method="post" id="regster">
+			      <div class="regbg">
+			      	 <p><input  placeholder="请输入您的注册手机号" type="text" maxlength="11" name="username" class="blur regbg-input" id="username_i"></p>
+			      	 <p>
+			      	 	<input  placeholder="请输入验证码" type="text"  maxlength="6" name="code" class="blur regbg-input" id="code_i">
+			      	 	<!--按钮-->
+			      	 	<input type="button"  class="reg-btn" value="获取验证码" />
+			      	 </p>
+			      </div>
+			      <div class="reg-btnbox">
+			      	 <a href="http://www.cuteyep.com/app/index.php?s=Login/retrieve_password2" class="reg-btn1" id="submit">下一步</a>
+			      </div>
+	     </form>		      
+           
+	      <script src="__APP__/public/js/common.js"></script>
+	      <script type="text/javascript">
+               
+
+
+	          $(function(){
+                   $('.blur').focus(function(){
+                      $(this).addClass('reg_select')
+                   })
+                   $('.blur').blur(function(){
+                      $(this).removeClass('reg_select')
+                   })
+                   $('.reg-btn').click(function(){
+
+          		     var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1}))+\d{8})$/; 
+					if(!myreg.test($("#username_i").val())) 
+					{ 
+					    tip('请输入有效的手机号码！'); 
+					    return false; 
+					}else{
+                              settime(this);
+					} 
+                    })
+
+                   $('#password_i').onlyNumAlpha();//只能输入数字和英文
+                   $('#submit').click(function(){
+                   	   var user = $('#username_i').val();
+                   	   var code = $('#code_i').val();
+                   	   if(user == 0){
+                   	   	 return tip('请输入用户名/手机号');
+                   	   }
+                   	   if(code < 6){
+                   	   	 return  tip('您输入的验证码不正确');
+                   	   }
+                   	   $.ajax({
+			                cache: true,
+			                type: "POST",
+			                url:ajaxCallUrl,
+			                data:$('#regster').serialize(),// 你的formid
+			                async: false,
+			                error: function(request) {
+			                    tip('发生错误了！')
+			                },
+			                success: function(data) {
+			                    tip('提交成功')
+			                }
+			         });
+                   	   return true
+                   })
+	          })
+
+	      </script>
+<include file="Public:see_footer" />   
+

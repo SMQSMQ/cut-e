@@ -1,0 +1,76 @@
+<include file="Public:ios_header" />
+<script src="__APP__/public/js/gmu.js"></script>
+
+         <section class="metabs">
+               <span class="tabs-stion active">表情</span>
+               <span class="tabs-stion">语音贺卡</span>
+               <span class="tabs-stion">壁纸</span>
+         </section>
+         <div style=" height:41px"></div>
+         <section id="tabs-con">
+               <article class="tabs-con-itm select">
+                    <div style=" padding: 10px;">
+                        <volist name="list0" id="vo" empty='$empty' >
+                        <div class="hm-cn-list">
+                               <div><img src="{$vo.cover}" class="hm-cn-listi express" onclick="disp_page('http://www.cuteyep.com/app/index.php?s=Index/expression_con/id/{$vo.targetid}/type/1')"></div>
+                               <div class="hm-cn-listx">
+                                     <p>{$vo.title}</p>
+                               </div>
+
+                         </div>
+                         </volist>
+
+                         <div class="cb"></div>
+                    </div>
+               </article>
+               <article class="tabs-con-itm">
+                     <div style=" padding: 10px;">
+                           <volist name="list2" id="vo" empty='$empty'>
+                           <div class="hm-cn-list">
+                                 <div><img src="{$vo.cover}" class="hm-cn-listi" onclick="disp_page('http://www.cuteyep.com/app/index.php?s=Index/greeting_card_con/id/{$vo.targetid}/type/1')"></div>
+                                 <div class="hm-cn-listx">
+                                       <p>{$vo.title}</p>
+                                 </div>
+
+                           </div>
+                      </volist>
+                           <div class="cb"></div>
+                     </div>
+               </article>
+               <article class="tabs-con-itm">
+                     <div style=" padding: 10px;">
+                           <volist name="list1" id="vo" empty='$empty'>
+                           <div class="hm-cn-list">
+                                 <div><img src="{$vo.cover}" class="hm-cn-listi" onclick="disp_page('http://www.cuteyep.com/app/index.php?s=Index/wallpaper_con/id/{$vo.targetid}/type/1')"></div>
+                                 <div class="hm-cn-listx">
+                                       <p>{$vo.title}</p>
+                                 </div>
+
+                           </div>
+                           </volist>
+                           <div class="cb"></div>
+                     </div>
+               </article>
+         </section>
+
+          <script type="text/javascript">
+              //tabs
+              $('.metabs span').click(function(){
+
+                  $('.metabs span').each(function(){
+                        $('.metabs span').removeClass('active')
+                  })
+
+                  $(this).addClass('active')
+
+                  var wpIndex =$(this).index();
+                   $('#tabs-con article').each(function(){
+                     $('#tabs-con article').removeClass('select');
+                  })
+                  $('#tabs-con article').eq(wpIndex).addClass('select');
+
+              })
+
+
+          </script>
+<include file="Public:ios_see_footer" />

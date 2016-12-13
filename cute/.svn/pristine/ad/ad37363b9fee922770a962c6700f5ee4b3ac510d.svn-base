@@ -1,0 +1,335 @@
+<?php
+namespace Home\Controller;
+use Think\Controller;
+class MeController extends Controller {
+    public function index(){
+    	is_login();
+    	$this->assign('title', '首页');
+    	$this->display();
+    }
+    /**
+     * 服务条款
+     */
+    public function article(){
+    	$see = D('content')->where('id='.$_GET['id'])->find();
+    	$this->assign('see', $see);
+    	$this->assign('title', $see['title']);
+    	$this->display(isset($_GET['type'])?'ios_article.html':'');
+    }
+    /**
+     * 我的制做
+     */
+    public function diy(){
+    	is_login();
+    	//赞
+    	$id = getuser();
+    	$like = D('voice_card');
+    	$where['uid'] = $id['user_id'];
+    	$list0 = $like->where($where)->order('id desc')->select();//表情
+    	$this->assign('list', $list0);
+    	$this->assign('empty','<span class="empty">暂无内容</span>');
+    	$this->assign('title', '我的制做');
+    	$this->display(isset($_GET['type'])?'ios_diy.html':'');
+    }
+    /**
+     * 我的下载
+     */
+    public function down(){
+    	is_login();
+    	//赞
+    	$id = getuser();
+    	$like = D('down');
+    	$where['uid'] = $id['user_id'];
+    	$where['type'] = 1;
+    	$list0 = $like->where($where)->order('id desc')->select();//表情
+    	$album = D('album');
+    	foreach ($list0 as $key=>$z){
+    		$s = $album->where('id='.$z['targetid'])->find();
+    		$list0[$key]['title'] = $s['title'];
+    		$list0[$key]['cover'] = $s['cover'];
+    	}
+    	$this->assign('list0', $list0);
+    	$this->assign('empty','<span class="empty">暂无内容</span>');
+    	$this->assign('title', '我的下载');
+    	$this->display(isset($_GET['type'])?'ios_down.html':'');
+    }
+    /**
+     * 我的关注
+     */
+    public function follow(){
+    	is_login();
+    	$id = getuser();
+    	$like = D('focus');
+    	$where['uid'] = $id['user_id'];
+    	$where['type'] = 0;
+    	$list0 = $like->where($where)->order('id desc')->select();//表情
+    	$emotion = D('emotion');
+    	foreach ($list0 as $key=>$z){
+    		$s = $emotion->where('id='.$z['cid'])->find();
+    		$list0[$key]['title'] = $s['title'];
+    		$list0[$key]['cover'] = $s['cover'];
+    	}
+    	$this->assign('list0', $list0);
+    	$where['type'] = 1;
+    	$list1 = $like->where($where)->order('id desc')->select();//壁纸
+    	$album = D('album');
+    	foreach ($list1 as $key=>$z){
+    		$s = $album->where('id='.$z['cid'])->find();
+    		$list1[$key]['title'] = $s['title'];
+    		$list1[$key]['cover'] = $s['cover'];
+    	}
+    	$this->assign('list1', $list1);
+    	$where['type'] = 2;
+    	$list2 = $like->where($where)->order('id desc')->select();//语音
+    	$voice_card = D('voice_card');
+    	foreach ($list2 as $key=>$z){
+    		$s = $voice_card->where('id='.$z['cid'])->find();
+    		$list2[$key]['title'] = $s['title'];
+    		$list2[$key]['cover'] = $s['cover'];
+    	}
+    	$this->assign('list2', $list2);
+    	$this->assign('empty','<span class="empty">暂无内容</span>');
+    	$this->assign('title', '我的关注');
+    	$this->display(isset($_GET['type'])?'ios_follow.html':'');
+    }
+    /**
+     * 更多
+     */
+    public function more(){
+    	$id = getuser();
+    	$this->assign('is_login', $id['user_id']);
+    	$this->assign('title', '更多');
+    	$this->display(isset($_GET['type'])?'ios_more.html':'');
+    }
+    /**
+     * 我的点赞
+     */
+    public function nice(){
+    	is_login();
+    	//赞
+    	$id = getuser();
+    	$like = D('like');
+    	$where['uid'] = $id['user_id'];
+    	$where['type'] = 0;
+    	$list0 = $like->where($where)->order('id desc')->select();//表情
+    	$emotion = D('emotion');
+    	foreach ($list0 as $key=>$z){
+    		$s = $emotion->where('id='.$z['targetid'])->find();
+    		$list0[$key]['title'] = $s['title'];
+    		$list0[$key]['cover'] = $s['cover'];
+    	}
+    	$this->assign('list0', $list0);
+    	$where['type'] = 1;
+    	$list1 = $like->where($where)->order('id desc')->select();//壁纸
+    	$album = D('album');
+    	foreach ($list1 as $key=>$z){
+    		$s = $album->where('id='.$z['targetid'])->find();
+    		$list1[$key]['title'] = $s['title'];
+    		$list1[$key]['cover'] = $s['cover'];
+    	}
+    	$this->assign('list1', $list1);
+    	$where['type'] = 2;
+    	$list2 = $like->where($where)->order('id desc')->select();//语音
+    	$voice_card = D('voice_card');
+    	foreach ($list2 as $key=>$z){
+    		$s = $voice_card->where('id='.$z['targetid'])->find();
+    		$list2[$key]['title'] = $s['title'];
+    		$list2[$key]['cover'] = $s['cover'];
+    	}
+    	$this->assign('list2', $list2);
+    	$this->assign('empty','<span class="empty">暂无内容</span>');
+    	$this->assign('title', '我的点赞');
+    	$this->display(isset($_GET['type'])?'ios_nice.html':'');
+    }
+    
+    /**
+     * 用户数据
+     */
+    public function data(){
+    	is_login();
+    	$this->assign('see', getuser());
+    	$this->assign('title', '用户信息');
+    	$this->display(isset($_GET['type'])?'ios_data':'');
+    }
+    /**
+     * 用户昵称修改
+     */
+    public function data_name(){
+    	//is_login();
+    	$this->assign('see', getuser());
+    	$this->assign('title', '用户信息修改');
+    	$this->display(isset($_GET['type'])?'ios_data_name.html':'');
+    }
+    /**
+     * 获取用户信息
+     */
+    public function get_user_data(){
+    	is_login();
+    	$id = getuser();
+    	$user = D('user');
+    	$see = $user->where('id='.$id['user_id'])->find();
+    	echo json_encode($see);
+    }
+    /**
+     * 修改资料
+     */
+    public function edit(){
+    	is_login();
+    	$User = D('User');
+    	$id = getuser();
+    	$User->where('id='.$id['user_id'])->save($_POST);
+    	if($_POST['nickname']!='') $_SESSION[C('SESSION_NAME')]['user_name'] = $_POST['nickname'];
+    	cookie(md5("cute"),serialize($_SESSION[C('SESSION_NAME')]));  //设置cookie并数给
+    	cookie(md5("cute"),serialize($_SESSION[C('SESSION_NAME')]),172800);
+    	echo 1;
+    }
+    /**
+     * 删除下载
+     */
+    public function del_down(){
+    	is_login();
+    	//赞
+    	$id = getuser();
+    	$down = D('down');
+    	$where['uid'] = $id['user_id'];
+    	$where['id'] = $_POST['id'];
+    	$id = $down->where($where)->delete();//表情
+    	echo 1;
+    }
+    /**
+     * del_diy
+     */
+    public function del_diy(){
+    	is_login();
+    	//赞
+    	$id = getuser();
+    	$down = D('voice_card');
+    	$where['uid'] = $id['user_id'];
+    	$where['id'] = $_POST['id'];
+    	$id = $down->where($where)->delete();//表情
+    	echo 1;
+    }
+    /**
+     * 关注删除
+     */
+    public function del_guanzhu(){
+    	is_login();
+    	//赞
+    	$id = getuser();
+    	$down = D('focus');
+    	$where['uid'] = $id['user_id'];
+    	$where['id'] = $_POST['id'];
+    	$where['type'] = $_POST['type'];
+    	$id = $down->where($where)->delete();//表情
+    	echo 1;
+    }
+    /**
+     * 用户昵称修改
+     */
+    public function data_gender(){
+    	//is_login();
+    	$id = getuser();
+    	$user = D('user');
+    	$see = $user->where('id='.$id['user_id'])->find();
+    	$this->assign('see', $see);
+    	$this->assign('title', '用户信息修改');
+    	$this->display(isset($_GET['type'])?'ios_data_gender.html':'');
+    }
+    public function data_age(){
+    	//is_login();
+    	$id = getuser();
+    	$user = D('user');
+    	$see = $user->where('id='.$id['user_id'])->find();
+    	$this->assign('see', $see);
+    	$this->assign('title', '用户信息修改');
+    	$this->display(isset($_GET['type'])?'ios_data_age.html':'');
+    }
+    public function data_region(){
+    	//is_login();
+    	$id = getuser();
+    	$user = D('user');
+    	$see = $user->where('id='.$id['user_id'])->find();
+    	$this->assign('see', $see);
+    	$this->assign('title', '用户信息修改');
+    	$this->display(isset($_GET['type'])?'ios_data_region.html':'');
+    }
+    
+    /**
+     * 上传制做的语音
+     */
+    public function up_yuyin(){
+    	$target_path  = "./public/user/";//接收文件目录
+    	if(!is_dir($target_path)){
+    		mkdir($target_path,0777,true);
+    	}
+    	$ext = pathinfo(basename($_FILES['uploadedfile']['name']));
+    	$ext = strtolower($ext['extension']);
+    	$new_file_name = substr(md5(time().rand(1000, 9999)),2,13).'.'.$ext;
+    	$target_path = rtrim($target_path,'/').'/'.$new_file_name;//$target_path . basename( $_FILES['uploadedfile']['name']);
+    	if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) {
+    		$_SESSION['cuty_hk']['ly_url'] = $new_file_name;
+    		echo $new_file_name;//"图片".$new_file_name. " 上传成功";
+    		//up_qinu('http://www./up.php',array('img_url'=>'/upload/'.$new_file_name,'img'=>'/upload/'.$new_file_name));
+    	}  else{
+    		echo "no";//"There was an error uploading the file, please try again!" . $_FILES['uploadedfile']['error'];
+    	}
+    }
+    /**
+     * 修改用户头像
+     */
+    public function data_user_pic(){
+    	$target_path  = "./public/user/";//接收文件目录
+    	if(!is_dir($target_path)){
+    		mkdir($target_path,0777,true);
+    	}	
+    	$ext = pathinfo(basename($_FILES['uploadedfile']['name']));
+    	$ext = strtolower($ext['extension']);
+    	$new_file_name = substr(md5(time().rand(1000, 9999)),2,13).'.'.$ext;
+    	
+    	$target_path = rtrim($target_path,'/').'/'.$new_file_name;//$target_path . basename( $_FILES['uploadedfile']['name']);
+    	if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) {
+    		
+    		echo $new_file_name;//"图片".$new_file_name. " 上传成功";
+    		//up_qinu('http://www./up.php',array('img_url'=>'/upload/'.$new_file_name,'img'=>'/upload/'.$new_file_name));
+    	}  else{
+    		echo "no";//"There was an error uploading the file, please try again!" . $_FILES['uploadedfile']['error'];
+    	}
+    }
+    /**
+     * 
+     */
+    public function up_pic_line(){
+    	$User = D('User');
+    	$id = getuser();
+    	$data['cover'] = 'http://www.cuteyep.com/app/public/user/'.$_POST['pic'];
+    	//$_POST['user_id'] = $_POST['user_id']==''?720:$_POST['user_id'];
+    	$User->where('id='.$id['user_id'])->save($data);
+    	$_SESSION[C('SESSION_NAME')]['user_pic'] = $data['cover'];
+    	cookie(md5("cute"),serialize($_SESSION[C('SESSION_NAME')]));  //设置cookie并数给
+    	cookie(md5("cute"),serialize($_SESSION[C('SESSION_NAME')]),172800*365);
+    	echo json_encode($_SESSION);
+    }
+    /**
+     * 灌溉
+     */
+    public function poster(){
+    	$ads = D('ads');
+    	$ad_list = $ads->where('ad_type=0')->select();
+    	foreach ($ad_list as $key=>$z){
+    		$pic = json_decode($z['pics'],true);
+    		$ad_list[$key]['pics'] = $pic[0]['url'];
+    	}
+    	$this->assign('ad_list', $ad_list);
+    	$this->assign('title', '广告');
+    	$this->display(isset($_GET['type'])?'ios_data_region.html':'');
+    }
+    
+    
+    /**
+     * 版本更新
+     */
+    public function version(){
+    	echo '1.0';
+    }
+    
+}

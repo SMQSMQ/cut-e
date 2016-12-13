@@ -1,0 +1,160 @@
+<include file="Public:header" />
+<link rel="stylesheet" type="text/css" href="__APP__/public/css/navigator.default.css" />
+<script src="__APP__/public/js/gmu.js"></script>
+<script src="__APP__/public/js/common.js"></script>
+
+
+           <div class="top">
+                    <div class="top-font">语音贺卡</div>
+                    <div class="iconfont top-search">&#xe604;</div>
+           </div>
+          <div style=" height:81px" ></div>
+          <div id="wrap">
+              <div class="left-fixed">
+                  
+                  <div id="nav">
+                      <ul>
+                          <li class="ui-state-active"><a href="#test1">推荐</a></li>
+                          <li><a href="#test2">人气</a></li>
+                          <li><a href="#test3">最新</a></li>
+                          <volist name="tag_list" id="vo" key="k">
+                          <li><a href="#test{$k+3}">{$vo.title}</a></li>
+                          </volist>
+                      </ul>
+                  </div>
+                  <div class="left"><a>Fix left</a></div>
+              </div>
+          </div>
+          <section id="tabs-con">
+                 <!--推荐的-->
+                 <article class="tabs-atc select">
+                    <div style=" padding: 10px;">
+                         <volist name="list" id="vo" empty="$empty">
+                         <div class="hm-cn-list" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Index/greeting_card_con/id/{$vo.id}')">
+                               <div><img src="{$vo.cover}" class="hm-cn-listi"></div>
+                               <div class="hm-cn-listx">
+                                     <p>{$vo.title}</p>
+                                     <p>点击数{$vo.pv}次</p>
+                               </div>
+                         </div>
+                         </volist>
+                     </div>    
+                 </article>
+                 <article class="tabs-atc">
+                 	<div style=" padding: 10px;">
+                         <volist name="rq_list" id="vo">
+                         <div class="hm-cn-list" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Index/greeting_card_con/id/{$vo.id}')">
+                               <div><img src="{$vo.cover}" class="hm-cn-listi"></div>
+                               <div class="hm-cn-listx">
+                                     <p>{$vo.title}</p>
+                                     <p>点击数{$vo.pv}次</p>
+                               </div>
+                         </div>
+                         </volist>
+                     </div> 
+                 </article>
+                 <article class="tabs-atc">
+                 <div style=" padding: 10px;">
+                         <volist name="new_list" id="vo">
+                         <div class="hm-cn-list" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Index/greeting_card_con/id/{$vo.id}')">
+                               <div><img src="{$vo.cover}" class="hm-cn-listi"></div>
+                               <div class="hm-cn-listx">
+                                     <p>{$vo.title}</p>
+                                     <p>点击数{$vo.pv}次</p>
+                               </div>
+                         </div>
+                         </volist>
+                     </div> 
+                 </article>
+                 <volist name="tag_list" id="vo" key="k">
+                 <article class="tabs-atc">
+                  <div style=" padding: 10px;">
+                    <php>if(count($vo['list'])<=0) echo $empty;</php>
+	                 	<volist name="vo['list']" id="vo2" empty="$empty">
+	                 		<div class="hm-cn-list" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Index/greeting_card_con/id/{$vo2.id}')">
+                               <div><img src="{$vo2.cover}" class="hm-cn-listi"></div>
+                               <div class="hm-cn-listx">
+                                     <p>{$vo2.title}</p>
+                                     <p>点击数{$vo2.pv}次</p>
+                               </div>
+                         </div>
+	                 	</volist>
+                 	</div>
+                 </article>
+                 </volist>
+          </section>
+         <div style=" height:80px"></div>
+
+         <script src="http://www.cuteyep.com/app/public/js/common.js"></script>
+
+
+          <script type="text/javascript">
+              (function(){
+                  var leftBtn = $('.left-fixed .left a'),
+                      nav = $('#nav');
+
+                  nav.navigator().on('select', function(){
+                      leftBtn.removeClass('ui-state-active');
+                  });
+
+                  leftBtn.click(function(){
+                      nav.navigator('unselect');
+                      $(this).addClass('ui-state-active');
+                  });
+              })();
+
+
+              $('#nav ul li').click(function(){
+
+                  var wpIndex =$(this).index();
+                  // $('.tabs-atc').eq(wpIndex).find('.wrap').empty()
+                  var dataID = $(this).attr('data_id');
+                  console.log(wpIndex)
+                  $('#tabs-con article').removeClass('select');
+                  $('#tabs-con article').eq(wpIndex).addClass('select');
+                  if($(this).hasClass('load')){
+                    dropLoads('__APP__/index.php?s=Index/greeting_card_data/tab_id/'+dataID+'/p/',wpIndex);
+                    $(this).removeClass('load');
+                  }
+              });
+
+              function dropLoads(url,index){
+                var page = 2;
+                var url = url;
+                $('.tabs-atc').eq(index).dropload({
+                  scrollArea : window,
+                  loadDownFn : function(me){
+                    $.ajax({
+                      type: 'get',
+                      url : url+page,
+                      success: function(data){
+                        var data = JSON.parse(data);
+                        console.log(data,page)
+                        if(data==null){
+                          $('.dropload-down').hide(500)
+                          me.lock()
+                        }
+                        $.each(data,function(i,v){
+                          me.lock();
+                          setTimeout(function(){
+                              $('.tabs-atc').eq(index).find('.wrap').append('<div class="hm-cn-list"><div><img src="'+v.cover+'" class="hm-cn-listi"></div><div class="hm-cn-listx"><p>'+v.title+'</p><p>点击数'+v.pv+'次</p></div></div>');
+                              page++;
+                              me.resetload();
+                          },1000)
+
+                        })
+                       // 每次数据加载完，必须重置
+                       },
+                         error: function(){
+                         alert('Ajax error!');
+                         // 即使加载出错，也得重置
+                         me.resetload();
+                       }
+                    })
+                  }
+                })
+              }
+
+myInterfaceName.wancheng(2);
+         </script>
+           <include file="Public:footer" />

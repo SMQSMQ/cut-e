@@ -1,0 +1,47 @@
+<include file="Public:header" />
+<style>
+.meicon{ height: 40px;text-align: center;}
+.meicon img{ display: inline-block; border: none; height: 35px;}
+
+.me-head img{width:88px; height: auto; border-radius: 0px;  display: inline-block; }
+</style>
+          <div style=" height:41px" ></div>
+          <section>
+                <div class="me-top" >
+                      <div class="me-head">
+                      <span style="height:88px; width: 88px; display:inline-block; overflow: hidden; border-radius:360px; "><img src="<if condition="$see['user_pic'] neq '' ">{$see.user_pic}<else />__APP__/public/images/cute-logo.png</if>" onerror="this.src='__APP__/public/images/cute-logo.png'" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Me/data')"></span></div>
+                      <div class="me-tit">{$see.user_name}</div>
+                </div>
+                <div class="me-menu">
+                       <div class="me-menu-item" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Me/nice')">
+                           <p class="me-menut meicon"><img src="__APP__/public/images/good.svg" ></p>
+                           <p>我的点赞</p>
+                       </div>
+                       <div class="me-menu-item me-menuhr" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Me/follow')">
+                           <p class="me-menut meicon"><img src="__APP__/public/images/focus-01.svg" ></p>
+                           <p>我的关注</p>
+                       </div>
+                       <div class="me-menu-item" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Me/diy')">
+                           <p class="me-menut meicon"><img src="__APP__/public/images/make.svg" ></p>
+                           <p>我的制作</p>
+                       </div>
+                       <div class="me-menu-item" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Me/down')">
+                           <p class="me-menut meicon"><img src="__APP__/public/images/download-big.svg" ></p>
+                           <p>我的下载</p>
+                       </div>
+                       <div class="me-menu-item me-menuhr" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Me/poster')">
+                           <p class="me-menut meicon"><img src="__APP__/public/images/ad.svg" ></p>
+                           <p>活动广告</p>
+                       </div>
+                       <div class="me-menu-item" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Me/more')">
+                           <p class="me-menut meicon"><img src="__APP__/public/images/more-big.svg"></p>
+                           <p>更多</p>
+                       </div>
+                </div>
+          </section>
+         <div style=" height:80px"></div>
+         <script>
+         myInterfaceName.wancheng(4);
+         </script>
+         <include file="Public:footer" />
+

@@ -1,0 +1,172 @@
+<include file="Public:header" />
+ <link rel="stylesheet" href="http://www.cuteyep.com/app/public/css/swiper.min.css">
+<style>
+body{ background: #f5f5f5;}
+    .swiper-container {
+        width: 100%;
+        height:auto;
+        background: #000;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+    .ad_top{
+      padding: 0 10px 10px 10px;
+      overflow: hidden;
+    }
+    .ad_top img{
+      border-radius: 10px;
+    }
+    .swiper-pagination-bullet{
+      background: none;
+      border: 1px solid #fff;
+      opacity: 1;
+    }
+    .swiper-pagination-bullet.swiper-pagination-bullet-active{
+      background: #fff;
+    }
+    .hm-top{
+      padding-left: 5px;
+    }
+    .guid{
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+    .guid .swiper-container{
+      height: 100%;
+    }
+</style>
+
+      <div style="height:41px;"></div>
+      
+      <div class="guid">
+        <div class="swiper-container"  onclick="myInterfaceName.auto_see('http://www.cuteyep.com/app/index.php?s=Index/wallpaper_con_view/id/{$see.id}')">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide"><img src="__APP__/public/images/pic2.jpg" class="hm-ba"></div>
+              <div class="swiper-slide"><img src="__APP__/public/images/pic2.jpg" class="hm-ba"></div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+      </div>
+
+      <div class="ad_top">
+        <a onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Me/poster');">
+          <img src="{$ad.pic}" alt="" style="width:100%">
+        </a>
+      </div>
+
+
+      <div class="swiper-container" >
+        <div class="swiper-wrapper">
+          <volist name="ba_list" id="vo">
+            <div class="swiper-slide"><a onclick="myInterfaceName.auto_see('{$vo.ad_url}')"><img src="{$vo.pics}" class="hm-ba"></a></div>
+          </volist>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+      </div>
+
+
+      <div class="hm-list">
+        <div>
+          <ul>
+            <li class="hm-top">人气表情</li>
+            <li class="hm-topr">&nbsp</li>
+          </ul>
+          <ul class="cb"></ul>
+        </div>
+        <div class="hm-cn">
+          <volist name="elist" id="vo">
+            <div class="hm-cn-list" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Index/expression_con/id/{$vo.id}')">
+              <div><img src="{$vo.cover}" class="hm-cn-listi express"></div>
+              <div class="hm-cn-listx">
+                <p>{$vo.title}</p>
+                <p>点击数{$vo.pv}次</p>
+              </div>
+            </div>
+          </volist>
+
+          <div class="cb"></div>
+        </div>
+      </div>
+      <div class="hm-gu" style="<php>if($ad2['pic']=='') echo 'display:none;';</php>"><img src="{$ad2.pic}"></div>
+      <div class="hm-list">
+        <div>
+          <ul>
+            <li class="hm-top">推荐语音贺卡</li>
+            <li class="hm-topr">&nbsp</li>
+          </ul>
+          <ul class="cb"></ul>
+        </div>
+        <div class="hm-cn">
+          <volist name="vlist" id="vo">
+            <div class="hm-cn-list" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Index/greeting_card_con/id/{$vo.id}')">
+              <div><img src="{$vo.cover}" class="hm-cn-listi"></div>
+              <div class="hm-cn-listx">
+                <p>{$vo.title}</p>
+                <p>点击数{$vo.pv}次</p>
+              </div>
+            </div>
+          </volist>
+
+          <div class="cb"></div>
+        </div>
+      </div>
+      <div class="hm-gu" style="<php>if($ad3['pic']=='') echo 'display:none;';</php>"><img src="{$ad3.pic}"></div>
+      <div class="hm-list">
+        <div>
+          <ul>
+            <li class="hm-top">精选壁纸</li>
+            <li class="hm-topr">&nbsp</li>
+          </ul>
+          <ul class="cb"></ul>
+        </div>
+        <div class="hm-cn">
+          <volist name="alist" id="vo">
+            <div class="hm-cn-list" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Index/wallpaper_con/id/{$vo.id}')">
+              <div><img src="{$vo.cover}" class="hm-cn-listi"></div>
+              <div class="hm-cn-listx">
+                <p>{$vo.title}</p>
+                <p>点击数{$vo.pv}次</p>
+              </div>
+            </div>
+          </volist>
+
+          <div class="cb"></div>
+        </div>
+      </div>
+
+      <div style=" height:30px"></div>
+
+
+            <!-- Swiper JS -->
+           <script src="http://www.cuteyep.com/app/public/js/swiper.min.js"></script>
+
+                <script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        paginationClickable: true
+    });
+    myInterfaceName.wancheng(0);
+    </script>
+
+
+<include file="Public:footer" />

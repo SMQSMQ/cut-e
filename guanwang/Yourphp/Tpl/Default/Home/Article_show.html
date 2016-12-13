@@ -1,0 +1,22 @@
+<include file="Home:header" />
+
+
+<div class="left">
+	<div class="pos">当前位置: <a href="/">网站首页</a> > <YP:catpos  catid="$catid" space=" > " /></div>
+
+	<div id="content">
+	<h1>{$title}<br><span>时间: {$createtime|toDate} &nbsp;&nbsp;&nbsp;&nbsp;来源: {if: $copyfrom}{$copyfrom}{else:/}{$site_name}{if:/}</span></h1> 
+
+	<span class="content">{$content}</span>
+
+	<div id="pages" class="page">{$pages}</div>
+	<br><br>
+	</div>
+</div>
+
+
+<div class="right">
+<include file="Home:right" />
+</div>
+
+<include file="Home:footer" />

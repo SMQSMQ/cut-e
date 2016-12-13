@@ -1,0 +1,39 @@
+<include file="Public:ios_header" />
+           <div class="top" >
+                    <a href="clos" class="iconfont top-back">&#xe617;</a>
+                    <div class="top-font">修改出生年月</div>
+                    <div class="diy-btn" id="submit-data">保存</div>
+           </div>
+           <div style=" height: 40px;"></div>
+          <section>
+                  <div class="data-innerbg">
+                        
+                        <input name="" maxlength="10" class="data-innertxt" id="data-age" value="{$see.age}"></input>
+                        <p class="data-innerf">请输入您的年龄</p>
+                  </div>
+          </section>
+
+          <script type="text/javascript">
+          $.get('http://www.cuteyep.com/app/Me/get_user_data',function(data){
+        	  var obj = JSON.parse(data);
+        	  $('#data-age').val(obj.age);
+          });
+                 $('#submit-data').click(function(){
+                        var dage=$('#data-age').val();
+                        if(dage ==''){
+                        	alert('年龄不能为空');	//myInterfaceName.toast('')
+                        }else{
+                        	$.post('http://www.cuteyep.com/app/Me/edit',{age:dage},function(data){
+                            	   setTimeout(clos,1000);
+                            alert('修改成功');
+                            	   return false;
+                               });
+                        } 
+
+
+                 });
+         function clos(){
+         		//myInterfaceName.clos();
+         	}
+          </script>
+<include file="Public:ios_see_footer" /> 

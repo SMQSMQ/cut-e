@@ -1,0 +1,6 @@
+
+</body>
+<script>
+disp_page('wancheng0:'+$('title').html());
+</script>
+</html>

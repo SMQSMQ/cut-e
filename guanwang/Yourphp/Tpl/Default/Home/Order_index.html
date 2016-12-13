@@ -1,0 +1,140 @@
+<include file="Home:header" />
+ <load href="../Public/images/order/order.css"/>
+<div class="left">
+		<div class="pos">当前位置: <a href="/">首页</a> > <YP:catpos  catid="$catid" space=" > " /></div>
+	 
+ 
+
+     		<div id="cart_box">
+					<div id="buy_ico">&nbsp;</div>
+            		<div id="buy_tab">
+						<ul class="buy_{$buy}">
+							<li class="one">1.放入购物车</li>
+							<li class="two">2.确认订单</li>
+							<li class="three">3.提交订单</li>
+						</ul>
+					</div> 
+					<div class="c"></div>
+				<if condition="$buy==2">
+					<div class="order_ok_message">
+						订单已经提交成功,请等待我们处理!<br>
+						订单编号是:{$cart['sn']}<br>
+						以下是您的订单信息:
+					</div>
+
+					<div class="order_userinfo">
+                        <h2>收货人信息</h2>
+                        <ul>
+                        <li><span>姓名：</span>{$cart['realname']} </li>
+						<li><span>电话号码：</span>{$cart['tel']} </li>
+                        <li><span>收货地址：</span>{$cart['address']} </li>
+						<li><span>邮编：</span>{$cart['zipcode']} </li>
+						</ul>
+                    </div>
+					<div class="c"></div>
+				</if>
+                    <div class="order_table">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+                          <tr align="center">
+							<th width="15%">商品图片</th>
+                            <th width="35%">商品名称</th>
+                            <th width="10%">单价</th>
+                            <th width="12%">数量</th>
+                            <th width="13%">小计（RMB）</th>
+                            <th>操作</td>
+                          </tr>
+					<if condition="empty($cart['productlist'])">
+							 <tr align="center">
+							 <td colspan="6"  style="padding:10px;border:0;color:#FB0000;" align="center">您的购物车为空!</td>
+							 </tr>
+					<else/>
+						  <volist name="cart['productlist']" id="vo">
+                          <tr align="center">
+							<td height="70" style="border-left:none;"><img src="{$vo['thumb']}" width="60" height="60"/></td>
+							<td>{$vo['title']}</td>
+							<td>{$vo['price']}</td>
+							<td>
+							<if condition="$buy">
+							{$vo['num']}
+							<else/>
+					 
+							<input type="text" name="num" onchange="changeorder(this,'{$vo['id']}',0,changeok);" class="num" id="num_{$vo['id']}" value="{$vo['num']}" size="2"/>
+							</if>
+							</td>
+							<td ><span class="count_price" id="count_price_{$vo['id']}">{$vo['countprice']|number_format=###,2}</span></td>
+							<td><a href="javascript:changeorder('','{$vo['id']}','1',delok);"  class="del">删除</a></td>
+						 </tr>
+						 </volist>
+					</if>
+						</table>
+                    </div>
+                    <div id="prototal">
+      					<span>商品总数：</span><span id="totalnum">{$cart['totalnum']|intval}</span><span> 件，</span>
+                    	<span>总价：</span><span id="totalprice">{$cart['totalprice']|number_format=###,2}</span><span> RMB&nbsp;&nbsp;</span>
+                    </div>
+					<div class="c"></div>
+			<eq name="buy" value="1">
+					 <form method="post" action="./index.php?m=Order&a=index&id={$id}&buy=2">
+					 <input type="hidden" id="" name="do" value="1" />
+					 <div class="order_userinfo">
+                        <h2>收货人信息</h2>
+                        <ul>
+                        <li><span>姓名：</span><input name="realname" id="realname"type="text" value="{$cart['realname']}"/></li>
+						<li>
+                        	<span>电话号码：</span><input name="tel" id="tel"  type="text" value="{$cart['tel']}"/>
+                        </li>
+						<li><span>传真：</span><input name="fax" id="fax"type="text" value="{$cart['fax']}"/></li>
+						<li><span>手机：</span><input name="mobile" id="mobilee"type="text" value="{$cart['mobile']}"/></li>
+						<li><span>邮箱：</span><input name="email" id="email"type="text" value="{$cart['email']}"/></li>
+                        <li>
+                        	<span>收货地址：</span><input   name="address" id="address" type="text" value="{$cart['address']}"/>
+                        </li>
+						<li><span>邮编：</span><input name="zipcode" id="zipcode"type="text" value="{$cart['zipcode']}"/></li>
+						</ul>
+                    </div>
+					<div class="c"></div>
+					
+                    <div id="buy_button">
+                    		<a href="./index.php?m=Order&a=index&id={$id}"><img src="../Public/images/order/gocart.jpg" /></a>	
+							<input type="image" class="img_but" src="../Public/images/order/submit.jpg" /> 
+							
+					</div>
+					</form>
+					<div class="c"></div>
+
+			</eq>
+
+			<eq name="buy" value="">
+				<div id="buy_button">
+				<a href="{$Categorys[$id]['url']}"><img src="../Public/images/order/goshop.jpg" /></a>
+				<if condition="!empty($cart['productlist'])"><a href="./index.php?m=Order&a=index&id={$id}&buy=1"><img src="../Public/images/order/buy.jpg" /></a></if>
+				</div>
+			</eq>
+
+
+ 
+					<div class="c"></div>
+					<br>
+			</div>
+		<br>
+</div>
+
+
+<div class="right">
+	<include file="Home:right" />
+</div>
+ 
+ 
+<script>
+function changeok(obj,productid,del,data){
+	$(obj).parent().css({ 'position': 'relative','overflow':'visible',});
+	$(obj).parent().append('<div id="cart_buy_ok">更新成功!</div>');	
+	$('#cart_buy_ok').css({ display:'block',width:'60px',top: '-23px',position:'absolute',border:'2px solid #FFA040',background:'#FFF4E8',padding:'10px 30px' });
+	setTimeout(function(){ document.location.href= ROOT+"index.php?m=Order&a=index&id={$catid}" },3000);
+} 
+
+function delok(obj,productid,del,data){
+	document.location.href= ROOT+"index.php?m=Order&a=index&id={$catid}";	
+}
+</script>
+<include file="Home:footer" />

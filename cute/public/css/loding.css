@@ -1,0 +1,35 @@
+﻿@charset "utf-8";
+.ld .loading{
+    display: inline-block;
+    height: 15px;
+    width: 15px;
+    border-radius: 100%;
+    margin: 6px;
+    border: 2px solid #999;
+    border-bottom-color: #00A2E8;
+    vertical-align: middle;
+    -webkit-animation: rotate1 0.75s linear infinite;
+    animation: rotate1 0.75s linear infinite;
+}
+@-webkit-keyframes rotate1 {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    50% {
+        -webkit-transform: rotate(180deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@keyframes rotate1 {
+    0% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(180deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}

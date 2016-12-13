@@ -1,0 +1,27 @@
+#cart_box{  overflow:hidden;margin-top:15px;}
+#buy_ico {float:left;width:90px;height:95px;margin:5px 35px;_margin:5px 25px;background:url(cart.jpg) no-repeat;}
+#buy_tab {float:left;margin-top:40px;background:url(buy_tabs.gif) no-repeat;width:385px;height:35px;line-height:35px;}
+#buy_tab ul {margin:0;padding:0;width:385px;height:35px;line-height:35px;background:url(buy_on.gif) no-repeat -20px 0;}
+#buy_tab ul.buy_1 {background:url(buy_on.gif) no-repeat 106px 0;}
+#buy_tab ul.buy_2 {background:url(buy_on.gif) no-repeat 231px 0;}
+#buy_tab ul li {float:left;width:105px;margin:0;text-align:center;padding-right:20px;}
+#buy_tab ul li.one {width:105px;}
+.order_table{ width:95%;  margin:0 auto; overflow:hidden;}
+.order_table table{ width:100%; margin:20px auto;}
+.order_table table th { border-bottom:2px #9FD2FF solid;background:#9FD2FF;color:#FFF;height:35px;}
+.order_table table td { border-bottom:1px #D1EBFF solid; border-left:1px #fff solid; background:#E2F2FF;}
+.order_table table td .num {text-align:center;}
+#prototal{ float:right; margin:25px 15px 10px 0; display:inline;line-height:40px;}
+#prototal span{ float:left;line-height:40px;}
+#prototal span#totalnum {color:#FF3300;}
+#prototal span#totalprice {color:#FF3300;font-size:18px;font-weight:bold;}
+#buy_button{float:right; height:35px; margin:20px 25px 0px 0;_margin:20px 15px 0 0; display:inline;}
+#buy_button img{ border:none;margin-left:60px;}
+.img_but { border:none;margin-left:60px;}
+.order_userinfo {margin:0 15px;}
+.order_userinfo h2 {background: #9FD2FF;height:35px;line-height:35px;border:none;}
+.order_userinfo ul {padding:5px;}
+.order_userinfo ul li {line-height:28px;clear:both;}
+.order_userinfo ul li input {line-height:18px;height:18px;padding:2px 3px;width:190px;}
+.order_userinfo ul li span {float:left;width:80px;}
+.order_ok_message {color:both;padding:20px;text-align:center;font-size:14px;color:#FB0000;line-height:26px;}

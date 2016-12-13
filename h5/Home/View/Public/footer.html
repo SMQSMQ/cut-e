@@ -1,0 +1,14 @@
+<script>
+setInterval("auto_login()",1000);
+function auto_login(){
+	 $.get('__APP__/index.php?s=Login/auto_login',function(data){
+		 var obj = JSON.parse(data);
+		 var variable1 = obj.user_pic;
+		 $('.me-top img').attr('src', obj.user_pic);
+		 $('.me-top .me-tit').html(obj.user_name);
+		 myInterfaceName.auto_login(obj.user_name);
+	 });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+<script>
+myInterfaceName.title($('title').html());
+myInterfaceName.wancheng(0);
+</script>
+</body>
+</html>

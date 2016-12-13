@@ -1,0 +1,18 @@
+<include file="Public:header" />
+          <section>
+                 <div class="data-box">
+                       <div class="data-head">
+                             <div>头像</div>
+                             <div class="data-headd" onclick="myInterfaceName.upladpic(0)"><img src="{$see.user_pic}"></div>
+                       </div>
+                       <div class="data-list" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Me/data_name')">昵称 <i class="iconfont memore-ico" >&#xe615;</i></div>
+                 </div>
+                <div class="data-box">
+                       <div class="data-list" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Me/data_gender')">性别 <i class="iconfont memore-ico" >&#xe615;</i></div>
+                       <div class="data-list" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Me/data_age')">年龄 <i class="iconfont memore-ico" >&#xe615;</i></div>
+                       <div class="data-list" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Me/data_region')">地区 <i class="iconfont memore-ico" >&#xe615;</i></div>
+                 </div>
+          </section>
+
+<include file="Public:see_footer" /> 
+

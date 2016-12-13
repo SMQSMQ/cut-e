@@ -1,0 +1,60 @@
+<include file="Public:header" />
+<link rel="stylesheet" type="text/css" href="http://www.cuteyep.com/app/public/css/common.css">
+          <div class="top">
+               <div class="top-font">制作语音贺卡</div>
+               <div  class="top-bb"  id="nexti" >下一步</div>
+               <a href="clos" class="top-back"></a>
+          </div>
+          <div style=" height: 40px;"></div>
+          <div class="cadbox">
+                <div class="cad-tit">选择贺卡场景动画</div>
+                <div id="cadbg">
+                      <ul>
+                           <volist name="list" id="vo">
+                            <li class="cad-list" rel="{$vo.id}">
+                                  <div class="cad-listin">
+                                      <p><img src="{$vo.cover}" class="img"></p>
+                                      <p class="cad-listic">{$vo.title}</p>
+                                  </div>   
+                            </li>
+                            </volist>
+                      </ul>
+                      <ul class="cb"></ul>
+                </div>
+          </div>
+          <script src="__APP__/public/js/common.js"></script>
+          <script type="text/javascript">
+                    var dataz=[]//数组
+                    var id = 1;
+                    $('#cadbg li').click(function(){
+
+                          $('#cadbg li').each(function(){
+                             $('#cadbg li').find('.cad-select').remove();  
+                          });
+                          id = $(this).attr('rel');
+                          var seIndex= $(this).index();//当前点击的值
+                          dataz.push(seIndex)//写入数组
+                          var seLength=$(this).find('.cad-select').length;//当前点击下是否包含
+                          if(seLength == 0){
+                              $(this).append('<div class="cad-select"></div>')
+                          } 
+                      
+                        // alert(dataz);
+                    });
+                    
+                    
+                   
+                    $('#nexti').click(function(){
+                         if(dataz == ''){
+                            return tip('请选择贺卡背景动画')
+                         }
+                         var mdata= dataz[dataz.length-1];//获取数组中最后点击
+
+                         $.post('http://www.cuteyep.com/app/index.php?s=Diy/add',{voice_card_select_id:id},function(data){
+                  		   auto('http://www.cuteyep.com/app/index.php?s=Diy/greeting_card2',$('.ld').attr('data-url'));
+                  	   });
+                    });
+
+          </script>
+<include file="Public:see_footer" />   
+

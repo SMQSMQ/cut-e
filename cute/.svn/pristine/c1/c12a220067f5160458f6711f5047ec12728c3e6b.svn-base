@@ -1,0 +1,113 @@
+<include file="Public:header" />
+<script src="http://www.cuteyep.com/app/public/js/gmu.js"></script>
+<script src="http://www.cuteyep.com/app/public/js/common.js"></script>
+<script src="http://www.cuteyep.com/app/public/js/jquery-1.11.3.min.js"></script>
+
+	<style type="text/css">
+          .searchbox{height: auto; position:fixed;left:0px; background: #fff; top: 0px; width:100%; z-index: 11;}
+          .searchbox1{ height: 45px; position:relatvie}
+          .searchbox-return{height: 45px; width:45px;position:absolute;left:0px; color: #000; text-decoration: none; line-height: 45px; text-align: center; top: 0px;}
+          .searchbox-top{margin:0 60px 0 50px; height: 45px; position:relative;}
+          .searchbox-top-tt{height: 30px; text-indent: 35px; line-height:35px;font-family: microsoft yahei; outline: none; border-radius: 360px; border: 1px solid #ccc; width:100%; margin-top: 6px;}
+          .searchbox-top-ico{height: 25px; width:30px; position: absolute;left:5px; color: #999; line-height: 25px; text-align: center; top: 10px;}
+          .searchbox-top-btt{height: 45px; width:45px;position:absolute;right:10px; line-height: 45px; text-align: center; top: 0px; }
+          .search-tabs{height: 40px; width:100%; display: none;}
+	</style>
+	      <div class="searchbox">
+                 <div class="searchbox1" >
+                       <a href="clos" class="iconfont searchbox-return">&#xe617;</a>
+                       <div class="searchbox-top">
+                            <input placeholder="请输入关键字..." type="text" class="searchbox-top-tt" id="search-txt">
+                            <i  class="iconfont searchbox-top-ico">&#xe600;</i>
+                       </div>
+                       <div class="searchbox-top-btt" id="search-btn">搜索</div>
+                </div> 
+                <div class="search-tabs" >
+                         <span class="tabs-stion active">表情</span>
+                         <span class="tabs-stion">语音贺卡</span>
+                         <span class="tabs-stion">壁纸</span>
+                         <div class="cb"></div>
+                </div>        
+         </div>
+         <div style=" height:91px"></div>
+         <section id="tabs-search" style="display: none;">
+              <div id="list">
+               <article class="tabs-con-itm select">
+                    <div style=" padding: 10px;">
+                        <volist name="list" id="vo" empty="$empty">
+                        <div class="hm-cn-list" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Index/expression_con/id/{$vo.id}')">
+                               <div><img src="{$vo.cover}" class="hm-cn-listi"></div>
+                               <div class="hm-cn-listx">
+                                     <p>{$vo.title}</p>
+                               </div>
+                         </div>
+                        </volist> 
+                         <div class="cb"></div>
+                    </div>
+               </article>
+               <article class="tabs-con-itm">
+                     <div style=" padding: 10px;">
+                           <volist name="list2" id="vo" empty="$empty">
+                           <div class="hm-cn-list" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Index/greeting_card_con/id/{$vo.id}')">
+                                 <div><img src="{$vo.cover}" class="hm-cn-listi"></div>
+                                 <div class="hm-cn-listx">
+                                       <p>{$vo.title}</p>
+                                 </div>
+                           </div>
+                           </volist>
+                           <div class="cb"></div>
+                     </div>
+               </article>
+               <article class="tabs-con-itm">
+                     <div style=" padding: 10px;">
+                           <volist name="list1" id="vo" empty="$empty">
+                           <div class="hm-cn-list" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Index/wallpaper_con/id/{$vo.id}')">
+                                 <div><img src="{$vo.cover}" class="hm-cn-listi"></div>
+                                 <div class="hm-cn-listx">
+                                       <p>{$vo.title}</p>
+                                 </div>
+                           </div>
+                           </volist>
+                           <div class="cb"></div>
+                     </div>
+               </article>
+               </div>
+         </section>
+
+          <script type="text/javascript">
+              //tabs
+              $('.search-tabs span').click(function(){
+                  
+                  $('.search-tabs span').each(function(){
+                        $('.search-tabs span').removeClass('active')
+                  })
+
+                  $(this).addClass('active')
+
+                  var wpIndex =$(this).index();
+                   $('#tabs-search article').each(function(){
+                     $('#tabs-search article').removeClass('select');
+                  })
+                  $('#tabs-search article').eq(wpIndex).addClass('select');
+
+              })
+
+              //
+
+              $('#search-btn').click(function(){
+                 var serVal =$('#search-txt').val()
+                 //alert(serVal);
+                 if(serVal == ''){
+                	 myInterfaceName.toast('请输入搜索内容')
+                 }else{
+
+                    $('.search-tabs').show();
+                    $('#tabs-search').show();
+                    $("#list").load('http://www.cuteyep.com/app/Index/search/wd/'+serVal+' #list');
+                 }
+              })
+
+              
+          </script>
+<include file="Public:see_footer" /> 
+

@@ -1,0 +1,18 @@
+
+<include file="Public:ios_header" />
+     <div id="fixnav" style=" position: absolute; background: #f00; z-index: 1000; height: 50px; opacity: 0.9;">nav</div> 
+
+    <div style="height: 5000px; width:100%; background:#ccc;"></div>
+    <script>
+
+    $(window).scroll(function(){ 
+    // 重点就是下面这一条语句的实现 
+    $("#fixnav").css({top: window.innerHeight + window.scrollY - $("#fixnav").outerHeight() }); 
+    }); 
+    disp_page('wancheng0');
+    </script>
+
+
+
+
+<include file="Public:ios_footer" />

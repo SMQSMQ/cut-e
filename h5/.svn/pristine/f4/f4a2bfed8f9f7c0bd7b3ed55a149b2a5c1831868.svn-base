@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>CuteYep</title>
+</head>
+<body>
+  <div class="out">
+    <h2>打开CuteYep有耶APP</h2>
+    <a id="open">点击打开CuteYep有耶APP</a>
+  </div>
+</body>
+<script>
+document.getElementById('open').onclick = function(e){
+  var ifr = document.createElement('iframe');
+  ifr.src = 'dongyuan://cuteyep.com/cy?openId=Index/expression_con/id/{$see.id}';
+  ifr.style.display = 'none';
+  document.body.appendChild(ifr);
+  window.setTimeout(function(){
+      document.body.removeChild(ifr);
+      window.location.href="http://a.app.qq.com/o/simple.jsp?pkgname=com.ct.cute";
+  },1000)
+};
+</script>
+</html>

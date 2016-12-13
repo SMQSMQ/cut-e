@@ -1,0 +1,90 @@
+<include file="Public:ios_header" />
+<script src="__APP__/public/js/gmu.js"></script>
+         <section class="metabs" style="top:20px;">
+               <span class="tabs-stion active">表情</span>
+               <span class="tabs-stion">语音贺卡</span>
+               <span class="tabs-stion">壁纸</span>
+         </section>
+         <div style=" height:61px"></div>
+         <section id="tabs-con">
+               <article class="tabs-con-itm select">
+                    <div style=" padding: 10px;">
+                        <volist name="list0" id="vo" empty='$empty' >
+                        <div class="hm-cn-list">
+                               <div><img src="{$vo.cover}" class="hm-cn-listi express" onclick="disp_page('http://www.cuteyep.com/app/index.php?s=Index/expression_con/id/{$vo.cid}/type/1')"></div>
+                               <div class="hm-cn-listx">
+                                     <p>{$vo.title}</p>
+                               </div>
+                               <!--取消关注-->
+                               <div class="follow-close" rel="{$vo.id}" type="0"></div>
+                         </div>
+                         </volist>
+
+                         <div class="cb"></div>
+                    </div>
+               </article>
+               <article class="tabs-con-itm">
+                     <div style=" padding: 10px;">
+                     <volist name="list2" id="vo" empty='$empty'>
+                           <div class="hm-cn-list">
+                                 <div><img src="{$vo.cover}" class="hm-cn-listi" onclick="disp_page('http://www.cuteyep.com/app/index.php?s=Index/greeting_card_con/id/{$vo.cid}/type/1')"></div>
+                                 <div class="hm-cn-listx">
+                                       <p>{$vo.title}</p>
+                                 </div>
+                                 <!--取消关注-->
+                                <div class="follow-close" rel="{$vo.id}" type="2"></div>
+                           </div>
+                      </volist>
+
+                           <div class="cb"></div>
+                     </div>
+               </article>
+               <article class="tabs-con-itm">
+                     <div style=" padding: 10px;">
+                         <volist name="list1" id="vo" empty='$empty'>
+                           <div class="hm-cn-list">
+                                 <div><img src="{$vo.cover}" class="hm-cn-listi" onclick="disp_page('http://www.cuteyep.com/app/index.php?s=Index/wallpaper_con/id/{$vo.cid}/type/1')"></div>
+                                 <div class="hm-cn-listx">
+                                       <p>{$vo.title}</p>
+                                 </div>
+                                 <!--取消关注-->
+                                <div class="follow-close" rel="{$vo.id}" type="1"></div>
+                           </div>
+                           </volist>
+                           <div class="cb"></div>
+                     </div>
+               </article>
+         </section>
+
+          <script type="text/javascript">
+              //tabs
+              $('.metabs span').click(function(){
+
+                  $('.metabs span').each(function(){
+                        $('.metabs span').removeClass('active')
+                  })
+
+                  $(this).addClass('active')
+
+                  var wpIndex =$(this).index();
+                   $('#tabs-con article').each(function(){
+                     $('#tabs-con article').removeClass('select');
+                  })
+                  $('#tabs-con article').eq(wpIndex).addClass('select');
+
+              })
+              //取消表情关注
+
+              $('.hm-cn-list .follow-close').click(function(){
+                   var confm= confirm('您确定要取消此关注吗？');
+                   var id = $(this).attr('rel');
+                   var type = $(this).attr('type');
+                   if(confm ==true){
+                       $(this).parent().remove();
+                       $.post('__APP__/index.php?s=Me/del_guanzhu',{id:id,type:type},function(){});
+                   }
+              })
+
+
+          </script>
+<include file="Public:ios_see_footer" />

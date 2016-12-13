@@ -1,0 +1,50 @@
+<include file="Public:ios_header" />
+    <style type="text/css">
+
+    .datagr-list{height:45px; line-height: 45px; border-bottom: 1px solid #e6e6e6;}
+    .datagr-list.select{ color: #f65f83}
+    </style>
+
+           <div class="top" >
+                    <a href="clos" class="iconfont top-back">&#xe617;</a>
+                    <div class="top-font">修改性别</div>
+                    <div class="diy-btn" id="submit-data">保存</div>
+           </div>
+           <div style=" height: 40px;"></div>
+          <section>
+                  <div class="data-innerbg" id="data-gen">
+                        <p class="datagr-list <php>if($see['sex']<=1){</php>select<php>}</php>" rel="1">男</p>
+                        <p class="datagr-list <php>if($see['sex']==2){</php>select<php>}</php>" rel="2">女</p>
+                  </div>
+          </section>
+           <script src="http://www.cuteyep.com/app/public/js/common.js"></script>
+          <script type="text/javascript">
+          var sex = 1;
+                $('.data-innerbg p').click(function(){
+                    $('#data-gen p').each(function(){
+                         $('#data-gen p').removeClass('select');
+                    });
+                    $(this).addClass('select');
+                    sex = $(this).attr('rel');
+                });
+
+                $.get('http://www.cuteyep.com/app/Me/get_user_data',function(data){
+              	  obj = JSON.parse(data);
+	              	$('#data-gen p').each(function(){
+	                    $('#data-gen p').removeClass('select');
+	               });
+	              	$('#data-gen p').eq(obj.sex-1).addClass('select');
+                });
+                $('#submit-data').click(function(){
+                        $.post('http://www.cuteyep.com/app/Me/edit',{sex:sex},function(data){
+                      	   setTimeout(clos,1000);
+                     alert('修改成功'); //	 myInterfaceName.toast('修改成功');
+                      	   return false;
+                         });
+                 });
+                function clos(){
+            		myInterfaceName.clos();
+            	}
+          </script>
+
+<include file="Public:ios_see_footer" /> 

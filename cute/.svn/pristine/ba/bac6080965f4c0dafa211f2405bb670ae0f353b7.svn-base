@@ -1,0 +1,133 @@
+<include file="Public:header" />
+<link rel="stylesheet" type="text/css" href="http://www.cuteyep.com/app/public/css/navigator.default.css" />
+<script src="__APP__/public/js/common.js"></script>
+           <div class="top">
+                    <div class="top-font">壁纸</div>
+                    <div class="iconfont top-search">&#xe604;</div>
+           </div>
+          <div style=" height:81px" ></div>
+          <div id="wrap">
+              <div class="left-fixed">
+
+                  <div id="nav">
+                      <ul>
+                          <li class="ui-state-active load"><a href="#test1">分类</a></li>
+                          <li class="load"><a href="#test1">推荐</a></li>
+                          <li class="load"><a href="#test2">人气</a></li>
+                          <li class="load"><a href="#test3">最新</a></li>
+                          <volist name="tag_list" id="vo" key="k">
+                          <li class="load"><a href="#test{$k+3}">{$vo.title}</a></li>
+                          </volist>
+                      </ul>
+                  </div>
+                  <div class="left"><a>Fix left</a></div>
+              </div>
+          </div>
+          <section id="tabs-con">
+                 <!--分类-->
+                 <article class="tabs-atc select">
+                         <volist name="fl" id="vo">
+                        <div class="wp-fllist" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Index/wallpaper_list/id/{$vo.id}')">
+                               <div class="wp-fllist-hd"><img src="{$vo.pic}"  class="img"></div>
+                               <div class="wp-flist-cn">
+                                      <p>{$vo.title}</p>
+                                      <p>{$vo.num}张</p>
+                               </div>
+                        </div>
+                        </volist>
+                 </article>
+                 <!--推荐的-->
+                 <article class="tabs-atc">
+                    <div style=" padding: 10px;">
+                         <volist name="list" id="vo" >
+                         <div class="hm-cn-list" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Index/wallpaper_con/id/{$vo.id}')">
+                               <div><img src="http://img.cuteyep.com/2a/8d205cc7ae118421356b6c507fe1ce.jpg"  data-src="{$vo.cover}"    class="hm-cn-listi lazyload"></div>
+                               <div class="hm-cn-listx">
+                                     <p>{$vo.title}</p>
+                                     <p>点击数{$vo.pv}次</p>
+                               </div>
+                         </div>
+                         </volist>
+                         <div class="cb"></div>
+                     </div>
+                 </article>
+                 <article class="tabs-atc">
+                 	<div style=" padding: 10px;">
+                         <volist name="rq_list" id="vo">
+                         <div class="hm-cn-list" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Index/wallpaper_con/id/{$vo.id}')">
+                               <div><img src="http://img.cuteyep.com/2a/8d205cc7ae118421356b6c507fe1ce.jpg"  data-src="{$vo.cover}" class="hm-cn-listi lazyload"></div>
+                               <div class="hm-cn-listx">
+                                     <p>{$vo.title}</p>
+                                     <p>点击数{$vo.pv}次</p>
+                               </div>
+                         </div>
+                         </volist>
+                         <div class="cb"></div>
+                     </div>
+                 </article>
+                 <article class="tabs-atc">
+                 <div style=" padding: 10px;">
+                         <volist name="new_list" id="vo">
+                         <div class="hm-cn-list" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Index/wallpaper_con/id/{$vo.id}')">
+                               <div><img src="http://img.cuteyep.com/2a/8d205cc7ae118421356b6c507fe1ce.jpg"  data-src="{$vo.cover}" class="hm-cn-listi lazyload"></div>
+                               <div class="hm-cn-listx">
+                                     <p>{$vo.title}</p>
+                                     <p>点击数{$vo.pv}次</p>
+                               </div>
+                         </div>
+                         </volist>
+                         <div class="cb"></div>
+                     </div>
+                 </article>
+                 <volist name="tag_list" id="vo" key="k">
+                 <article class="tabs-atc" class="ab{$k+3}">
+                  <div style=" padding: 10px;">
+                  <php>if(count($vo['list'])<=0) echo $empty;</php>
+	                 	<volist name="vo['list']" id="vo2" empty="$empty">
+	                 		<div class="hm-cn-list" onclick="myInterfaceName.see('http://www.cuteyep.com/app/index.php?s=Index/wallpaper_con/id/{$vo2.id}')">
+                               <div><img src="http://img.cuteyep.com/2a/8d205cc7ae118421356b6c507fe1ce.jpg"  data-src="{$vo2.cover}" class="hm-cn-listi lazyload"></div>
+                               <div class="hm-cn-listx">
+                                     <p>{$vo2.title}</p>
+                                     <p>点击数{$vo2.pv}次</p>
+                               </div>
+                         </div>
+	                 	</volist>
+                 	</div>
+                 </article>
+                 </volist>
+
+          </section>
+         <div style=" height:80px"></div>
+ <script src="http://www.cuteyep.com/app/public/js/common.js"></script>
+          <script type="text/javascript">
+                (function(){
+                    var leftBtn = $('.left-fixed .left a'),
+                        nav = $('#nav');
+
+                    nav.navigator().on('select', function(){
+                        leftBtn.removeClass('ui-state-active');
+                    });
+
+                    leftBtn.click(function(){
+                        nav.navigator('unselect');
+                        $(this).addClass('ui-state-active');
+                    });
+                })();
+
+                $('#nav ul li').click(function(){
+                    var wpIndex =$(this).index();
+                    console.log(wpIndex)
+                    if($(this).hasClass('load')){
+                      dropLoads('__APP__/index.php?s=Index/wallpaper_data/p/',wpIndex);
+                      console.log(wpIndex,$('.tabs-atc').eq(wpIndex).index());
+                      $(this).removeClass('load')
+                    }
+                    $('#tabs-con article').removeClass('select');
+                    $('#tabs-con article').eq(wpIndex).addClass('select');
+
+
+                });
+                myInterfaceName.wancheng(3);
+           </script>
+
+           <include file="Public:footer" />

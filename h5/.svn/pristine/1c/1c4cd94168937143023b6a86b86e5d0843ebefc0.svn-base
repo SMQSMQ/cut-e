@@ -1,0 +1,60 @@
+<?php
+namespace Home\Controller;
+use Think\Controller;
+class DiyController extends Controller {
+
+    public function greeting_card3_opp(){
+    	$voice_card = D('voice_card');
+        $see = $voice_card->where('id='.$_GET['id'])->find();
+    	/*     选择标题 */
+    	$voice_card_title = D('voice_card_title');
+    	$text_title=$voice_card_title->field('title,con')->order('id desc')->select();
+    	$this->assign('text_title', $text_title);
+    
+    	/*    	选择音乐 */
+    	$voice_card_select = D('voice_card_select');
+    	$voice_title=$voice_card_select->field('id,title,cover,media_url')->order('id desc')->select();
+    	$title=isset($_SESSION['cuty']['title'])?$_SESSION['cuty']['title']:$see['title'];
+    	$this->assign('voice_title', $voice_title);
+    	$this->assign('title', $title);
+    	$this->assign('see',$see);  
+    	$this->display(isset($_GET['type'])?'ios_greeting_card3_opp':'');
+    }
+
+
+    public function greeting_sava(){
+    	$voice_card = D('voice_card');
+    	$voice_card_select = D('voice_card_select');
+    	
+    	$_SESSION['cuty']['y_id']=$_POST['y_id'];
+ 		
+    		if(isset($_SESSION['cuty']['y_id'])){
+    			$id=$_SESSION['cuty']['y_id'];
+    			$see = $voice_card_select->where('id='.$id)->find();
+    			$data['media_url']=$see['media_url'];
+    			$data['pics']=$see['pics'];  			
+    		}   
+    		$data['cover']='http://www.cuteyep.com/app/public/images/cute-logo.png';
+   			$data['title']= $_POST['title'];   			 
+   			$data['memo'] =$_POST['con'];
+   			$data['is_line']=0;
+   			 $data['add_time'] = date('Y-m-d H:i:s');
+   			 $data['user_type'] = 1;  	
+   		
+   			if(isset($_SESSION['shareid'])){   				
+   				$voice_card->where('id='.$_SESSION['shareid'])->save($data);
+   			}else{   				
+   				$shareid= $voice_card->add($data);
+   				$_SESSION['shareid']=$shareid;
+   			}
+   		
+   		echo $shareid;
+/*     	$aid['title'] = $data['title'];
+    	$aid['media_url'] = $data['media_url'];
+    	$aid['memo'] = $_SESSION['cuty']['con'];
+    	$aid['url'] = "http://www.cuteyep.com/h5/index.php?s=Diy/greeting_card3_opp/id/".$id;   	
+    	$aid['cover'] = $data['cover']==''?'http://www.cuteyep.com/app/public/images/cute-logo.png':$data['cover']; */
+    }
+    
+    
+}

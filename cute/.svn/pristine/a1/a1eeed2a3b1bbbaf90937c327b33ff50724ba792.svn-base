@@ -1,0 +1,23 @@
+var kk = "dyapp::dy::";
+function disp_page(str)
+  {
+     cmd = "dy";
+      var url=kk+str;
+      document.location = url;
+  }
+
+
+function wx(title,pic,con,u)
+{
+	var url=kk+"::wx::"+title+"::"+pic+"::"+con+"::"+u;
+	document.location = url;
+}
+
+function qq(title,pic,con,u)
+{
+	var url=kk+"::qq::"+title+"::"+pic+"::"+con+"::"+u;
+	document.location = url;
+}
+
+
+

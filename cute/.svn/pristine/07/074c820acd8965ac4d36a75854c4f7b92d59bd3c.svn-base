@@ -1,0 +1,33 @@
+var cuteyep = "dyapp:dy:";
+function disp_page(str)//页面跳转
+  {
+      var url=cuteyep+str;
+      document.location = url;
+  }
+
+
+function find(title,con,pic,u)//分享给好友
+{
+	var u=cuteyep+"wx_fx_find:"+title+":"+pic+":"+con+":"+u;
+	document.location = u;
+}
+
+function quan(title,con,pic,u)//分享到朋友圈
+{
+	var u=cuteyep+"wx_fx_quan:"+title+":"+pic+":"+con+":"+u;
+	document.location = u;
+}
+
+function qq(title,con,pic,u)//qq
+{
+	var u=cuteyep+":qq:"+title+":"+con+":"+pic+":"+u;
+	document.location = u;
+}
+/**
+ * 分享给好友
+ */
+function fenxiang_find(str){
+	document.location = cuteyep+'share:'+str;
+}
+
+

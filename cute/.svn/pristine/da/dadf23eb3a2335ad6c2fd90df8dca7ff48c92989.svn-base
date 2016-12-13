@@ -1,0 +1,33 @@
+<include file="Public:ios_header" />
+          <section>
+                <div class="memore-box"> 
+                       <p onclick="disp_page('http://www.cuteyep.com/app/index.php?s=Me/article/id/1/type/1')" >帮助<i class="memore-ico" ></i></p>
+                       <p onclick="disp_page.pinjia('http://app.qq.com/#id=detail&appid=1105669993')/type/1">评价 <i class="memore-ico" ></i></p>
+                       <p onclick="disp_page('http://www.cuteyep.com/app/index.php?s=Me/article/id/2/type/1')" >商务洽谈 <i class=" memore-ico" ></i></p>
+                       <p onclick="disp_page('http://www.cuteyep.com/app/index.php?s=Me/article/id/3/type/1')" >关于CuteYep <i class="memore-ico" ></i></p>
+                </div>
+                <div class="memore-box"> 
+                       <p onclick="disp_page('http://www.cuteyep.com/app/index.php?s=Me/article/id/4/type/1')" >使用条款 <i class="memore-ico"></i></p>
+                       <p onclick="myInterfaceName.version('1')">版本信息<span class="memore-font">1.0</span></p>
+                </div>
+                <php>if($is_login>0){</php>
+                <div class="memore-btn">安全退出</div>
+                <php>}</php>
+          </section>
+          <script src="__APP__/public/js/common.js"></script>
+<script>
+$('.memore-btn').click(function(){
+	$.get('__APP__/index.php?s=Login/back',function(data){
+     setTimeout(clos,1000);
+		 return tip('已安全退出');
+	});
+});
+
+function clos(){
+//  myInterfaceName.clos();
+}
+
+
+</script>
+<include file="Public:ios_see_footer" />    
+

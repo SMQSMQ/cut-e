@@ -1,0 +1,53 @@
+
+
+<!doctype html>
+<html>
+	<head>
+	    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	    <meta charset="utf-8">
+	    <title>主页</title>
+	    <link rel="stylesheet" type="text/css" href="__APP__/public/font/iconfont.css">
+	    <link rel="stylesheet" type="text/css" href="__APP__/public/css/common.css">
+      <link rel="stylesheet" type="text/css" href="__APP__/public/css/loding.css">
+      <script src="__APP__/public/js/zepto.js"></script>
+      <script src="__APP__/public/js/gmu.js"></script>
+	</head>
+	<body>
+  <center class="center ld" style=""><span class="loading"></span>加载中...</center>
+  <div class="top">
+    <a href="clos" style="color:#000;"><div class="iconfont top-back" href="clos">&#xe617;</div></a>
+    <div class="top-font"></div>
+	</div>
+	<div class="top2"></div>
+	<div style=" height:41px" class="auto41"></div>
+	<div class="list_page">
+	    <div class="page" >
+				
+		</div>
+	</div>
+    
+	<script>
+
+	//设置标题
+	function title(str){
+		$('.top .top-font').html(str);
+	}
+	auto('http://www.cuteyep.com/app/index.php?s=/Index/auto_page','http://www.cuteyep.com/app/index.php?s=/Index/wallpaper_con_view/id/35');
+	function auto(url,posturl){
+	    $('.ld').attr('rel',url);
+	    $('.ld').attr('data-url',posturl);
+		$.post(url,{posturl:posturl},function(data){
+			alert(data);
+		    $('.ld').hide();
+			$('.page').html(data);
+            var swiper = new Swiper('.swiper-container', {
+			        pagination: '.swiper-pagination',
+			        paginationClickable: true
+			});
+			alert('1212312132123132');
+		});
+	}
+	</script>  
+	</body>
+</html>    
+

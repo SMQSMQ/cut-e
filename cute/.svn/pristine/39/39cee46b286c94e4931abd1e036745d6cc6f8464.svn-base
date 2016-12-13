@@ -1,0 +1,382 @@
+<include file="Public:ios_header" />
+ <link rel="stylesheet" href="http://www.cuteyep.com/app/public/css/common.css">
+ <link rel="stylesheet" href="http://www.cuteyep.com/app/public/css/swiper.min.css">
+    <style type="text/css">
+
+
+
+.confot {
+    padding-top: 5px;
+    height: 25px;
+    padding-bottom: 3px;
+}
+.confot img{height:25px; display:inline-block; border: none;}
+
+.abum .wp-fllist:last-of-type{ border: none;}
+
+    .swiper-container {
+        width:412px;
+        height:auto;
+        background: #f5f5f5;
+    }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+    }
+
+    .share-shade{
+      position: fixed;
+      margin: auto;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: rgba(0,0,0,.6);
+      z-index: 15;
+      display: none;
+    }
+
+    .share-inner{
+      width: 95%;
+      position: fixed;
+      margin: auto;
+      top: 100%;
+      opacity: 0;
+      left: 0;
+      right: 0;
+      text-align: center;
+      background: #fff;
+      transition: top ease .3s,opacity ease .3s .1s;
+      z-index: 15;
+    }
+    .share-inner.up{
+      top: 10%;
+      opacity: 1;
+    }
+    .share-inner h2{
+      border-bottom: 1px solid #ccc;
+      padding: 15px;
+    }
+    .share-inner ul{
+      padding: 30px 20px 10px 20px;
+    }
+
+    .share-inner ul li{
+      width: 100%;
+      margin-bottom: 20px;
+      line-height: 45px;
+    }
+    .share-inner ul li::after{
+      content: '';
+      display: block;
+      clear: both;
+    }
+    .share-inner ul li .share-img{
+      float: left;
+      width: 45px;
+      height: 45px;
+      margin: 0 auto;
+    }
+    .share-inner ul li .share-img img{
+      width: 100%;
+    }
+    .share-inner ul li p{
+      float: left;
+      margin-left: 15px;
+      font-size: 18px;
+    }
+    .share-inner .cancel-btn{
+      padding: 15px;
+      font-size: 17px;
+      border-top: 1px solid #ccc;
+      color: #0a9950;
+    }
+
+    </style>
+          <div class="share-shade"></div>
+          <div class="share-inner">
+            <h2>CuteYep分享</h2>
+            <ul>
+              <li>
+                <div class="share-img">
+                  <img src="http://www.cuteyep.com/app/public/images/weixin.svg" alt="">
+                </div>
+                <p>微信好友</p>
+              </li>
+              <li>
+                <div class="share-img">
+                  <img src="http://www.cuteyep.com/app/public/images/weixin.svg" alt="">
+                </div>
+                <p>微信朋友圈</p>
+              </li>
+              <li>
+                <div class="share-img">
+                  <img src="http://www.cuteyep.com/app/public/images/weixin.svg" alt="">
+                </div>
+                <p>QQ好友</p>
+              </li>
+              <li>
+                <div class="share-img">
+                  <img src="http://www.cuteyep.com/app/public/images/weixin.svg" alt="">
+                </div>
+                <p>QQ空间</p>
+              </li>
+            </ul>
+            <div class="cancel-btn">取消</div>
+          </div>
+
+          <div>
+            <div class="wplcn-t">
+              <!--开始-->
+              <div class="swiper-container"  onclick="disp_page.auto_see('http://www.cuteyep.com/app/index.php?s=Index/wallpaper_con_view/id/{$see.id}/type/1')">
+                <div class="swiper-wrapper">
+
+                  <volist name="see['pics']" id="vo" key="k">
+                    <div class="swiper-slide"><img src="{$vo}" class="hm-ba"></div>
+                  </volist>
+
+                </div>
+              </div>
+              <!--结束-->
+              <div class="wplcn-fd">
+                <div class="wplcn-fdic" id="follow" style="width: 25%">
+                  <p class="wplcn-fdico confot" >
+                    <i ><img src="__APP__/public/images/focus.svg"> </i>
+                    <i style=" display:none;"><img src="__APP__/public/images/focus-filled.svg"> </i>
+                  </p>
+                  <p style="font-size: 10px">{$see.is_gz}关注</p>
+                </div>
+                <div class="wplcn-fdic down" style="width: 25%">
+                  <p class="confot"><img src="__APP__/public/images/download.svg"> </p>
+                  <p style="font-size: 10px">下载</p>
+                </div>
+                <div class="wplcn-fdic set_bizhi" style="width: 25%">
+                  <p class="confot"><img src="__APP__/public/images/setup_1.svg"> </p>
+                  <p style="font-size: 10px">马上设定</p>
+                </div>
+                <div class="wplcn-fdic" style="width: 25%" onclick="disp_page.share_Text('{$see.title}','{$see.memo}http://www.cuteyep.com/h5/index.php?s=Index/wallpaper_con/id/{$see.id}/type/1')">
+                  <p class="confot"><img src="__APP__/public/images/share.svg"> </p>
+                  <p style="font-size: 10px">分享</p>
+                  <p style="font-size: 10px; display:none;" >分享</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="wplcn-bg">
+            <div class="wplcn-t1">{$see.title}</div>
+            <div class="wplcn-t2">{$see.memo}</div>
+            <div class="wplcn-t3">浏览数：<span style=" color: #f00">{$see.pv}</span>次</div>
+          </div>
+          <div class="wplcn-bg">
+            <span class="wplcn-share" onclick="disp_page('wx:123')"><img src="__APP__/public/images/weixin.svg" style="height:45px; display:block;"></span>
+            <span class="wplcn-share" onclick="disp_page('qq:123')"><img src="__APP__/public/images/qq.svg" style="height:45px; display:block;"></span>
+            <span class="wplcn-share" onclick="disp_page.sys_Share('{$see.cover}')"><img src="__APP__/public/images/more.svg" style="height:45px; display:block;"></span>
+          </div>
+          <div class="expbtn" style=" margin-top: 20px;">
+            <span class="zan">赞</span>
+          </div>
+          <div class="expzan">
+            <span>收到的赞</span>
+            <div class="expzan-im">
+              <volist name="slist" id="vo" empty='$empty'>
+                <span class="expzan-hd"><img src="{$vo.pic}" class="img"></span>
+              </volist>
+              <i class=" expzan-mor" onclick="disp_page('http://www.cuteyep.com/app/index.php?s=Index/like_list/id/{$see.id}/t/1/type/1')">{$count}</i>
+            </div>
+          </div>
+          <div class="wplcn-bg1">
+            <div class="wplcn-tit">相关分组推荐</div>
+            <div class="abum">
+              <volist name="clist" id="vo" empty="$empty" >
+                <div class="wp-fllist" onclick="disp_page('http://www.cuteyep.com/app/index.php?s=Index/wallpaper_list/id/{$vo.id}/type/1')">
+                  <div class="wp-fllist-hd"><img src="{$vo.pic}"  class="img"></div>
+                  <div class="wp-flist-cn">
+                    <p>{$vo.title}</p>
+                    <p>{$vo.num}张</p>
+                  </div>
+                </div>
+              </volist>
+
+            </div>
+          </div>
+          <div class="wplcn-tit2">相关壁纸推荐</div>
+          <div style=" padding: 0px 10px 10px 10px;" >
+            <volist name="list" id="vo" empty="$empty">
+              <div class="hm-cn-list" onclick="disp_page('http://www.cuteyep.com/app/index.php?s=Index/wallpaper_con/id/{$vo.id}/type/1')">
+                <div><img src="{$vo.cover}" class="hm-cn-listi"></div>
+                <div class="hm-cn-listx">
+                  <p>{$vo.title}</p>
+                  <p>点击数{$vo.pv}次</p>
+                </div>
+              </div>
+            </volist>
+
+            <div class="cb"></div>
+          </div>
+            <!-- Swiper JS -->
+          <script src="http://www.cuteyep.com/app/public/js/swiper.min.js"></script>
+
+         <script src="__APP__/public/js/ios_public.js"></script>
+         <script type="text/javascript">
+             //赞
+             var is_zan = '{$see.is_zan}';//为0表示未赞，为1表示已赞
+             var zan_count = parseInt($('.expzan-mor').html())
+             if(is_zan == 0){
+               $('.zan').html('赞');
+               is_zan = 1;
+             }else{
+               $('.zan').html('已赞');
+               is_zan = 0;
+             }
+             $('.zan').click(function(){
+               zani= 2;
+               var id = '{$see.id}';
+               var  url = 'http://www.cuteyep.com__APP__/index.php?s=Login';
+               $.post('__APP__/index.php?s=Index/is_zan',{id:id,type:1},function(data){
+                 //alert(data);
+                 if(data=='') myInterfaceName.see(url);//如果没登陆，跳转到登录页面
+                 else{
+                   if(is_zan == 0){
+                     $('.zan').html('赞');
+                     is_zan = 1;
+                     tip('取消赞成功');
+                     zan_count -= 1;//赞人数-1
+                   }else{
+                     $('.zan').html('已赞');
+                     is_zan = 0;
+                     tip('赞成功')
+                     zan_count += 1; //赞人数+1
+                   }
+                   $('.expzan-mor').html(zan_count)
+                 }
+               });
+             });
+
+
+             //赞人数超过100显示99+
+             var niceM= '{$count}';
+             if(niceM > 100){
+               $('.expzan-mor').html('99+')
+             }
+             if(niceM == 0){
+               $('.expzan-mor').hide();
+             }
+
+
+             //关注
+
+             var is_gz = '{$see.is_gz}';//为0表示未关注，为1表示已关注
+             if(is_gz == 0){
+               $('#follow').find('p').eq(1).html('关注');
+               $('#follow i').eq(1).hide();
+               $('#follow i').eq(0).show();
+               is_gz = 1;
+
+             }else{
+               $('#follow').find('p').eq(1).html('已关注');
+               $('#follow i').eq(0).hide();
+               $('#follow i').eq(1).show();
+               is_gz = 0;
+             }
+             $('#follow').click(function(){
+               var id = '{$see.id}';
+               var  url = 'http://www.cuteyep.com__APP__/index.php?s=Login';
+               $.post('__APP__/index.php?s=Index/is_guanzhu',{id:id,type:1},function(data){
+                 if(data=='') myInterfaceName.see(url);//如果没登陆，跳转到登录页面
+                 else{
+                   if(is_gz == 0){
+                     $('#follow').find('p').eq(1).html('关注');
+                     $('#follow i').eq(1).hide();
+                     $('#follow i').eq(0).show();
+                     is_gz = 1;
+                     tip('取消关注成功')
+                   }else{
+                     $('#follow').find('p').eq(1).html('已关注');
+                     $('#follow i').eq(0).hide();
+                     $('#follow i').eq(1).show();
+                     is_gz = 0;
+                     tip('关注成功')
+                   }
+                 }
+               });
+             })
+
+             var smIndex = 0;
+             var oood=$('.swiper-wrapper img').eq(smIndex).attr('src');
+             var Swiper = new Swiper('.swiper-container',{
+               onSlideChangeStart: function(swiper){
+                 smIndex = Swiper.activeIndex;
+
+                 oood=$('.swiper-wrapper img').eq(smIndex).attr('src');
+               }
+             });
+             $('.down').click(function(){
+               var id = '{$see.id}';
+               var  url = 'http://www.cuteyep.com__APP__/index.php?s=Login';
+               $.post('__APP__/index.php?s=Index/is_down',{id:id,type:1},function(data){
+                 if(data=='') myInterfaceName.see(url);
+                 //else if(data=='-1') return tip('已下载过了！');
+                 else{
+                   myInterfaceName.dow('{$see.cover}');
+                   tip('下载成功，请到我中查看！');
+                   //$('.down').addClass('follow-select');//赞成功了
+                   //$('.down').html('已下载');
+
+                 }
+               });
+             });
+             $('.set_bizhi').click(function(){
+               var id = '{$see.id}';
+               var  url = 'http://www.cuteyep.com__APP__/index.php?s=Login';
+               $.post('__APP__/index.php?s=Index/is_down',{id:id,type:1},function(data){
+                 if(data=='') myInterfaceName.see(url);
+                 //else if(data=='-1') return tip('已下载过了！');
+                 else{
+
+                   myInterfaceName.set_bizhi(oood);
+                   //tip('设置成功，请到退出app查看！');
+                 }
+               });
+             });
+
+             $('.share-more').click(function(e){
+               $('.share-shade').show(500)
+               $('.share-inner').addClass('up');
+               return false;
+             })
+
+             $('.cancel-btn').click(function(){
+               $('.share-shade').hide(500)
+               $('.share-inner').removeClass('up');
+             })
+
+             $('.share-inner li').click(function(){
+               var index = $(this).index();
+               var u = 'http://www.cuteyep.com/h5/index.php?s=Index/wallpaper_con/id/{$see.id}';
+               var t = '{$see.title}';
+               var c = '{$see.memo}';
+               var p = '{$see.cover}';
+               if(index==0) disp_page.weixin_fenxiang(u,t,c,p,0);
+               if(index==1) disp_page.weixin_fenxiang(u,t,c,p,1);
+               if(index==2) disp_page.qq_Share(t,c,u,p);
+               if(index==3) disp_page.qq_Share(t,c,u,p);
+             })
+
+
+         </script>
+<include file="Public:ios_see_footer" />

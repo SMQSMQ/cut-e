@@ -1,0 +1,41 @@
+<include file="Public:ios_header" />
+          <section>
+                <div class="me-top" >
+                      <div class="me-head">
+                      <img src="<if condition="$see['user_pic'] neq '' ">{$see.user_pic}<else />__APP__/public/images/cute-logo.png</if>" onerror="this.src='__APP__/public/images/cute-logo.png'" onclick="disp_page('http://www.cuteyep.com/app/Me/data/type/1')"></div>
+                      <div class="me-tit">{$see.user_name}</div>
+                </div>
+                <div class="me-menu">
+                       <div class="me-menu-item" onclick="disp_page('http://www.cuteyep.com/app/index.php?s=Me/nice')">
+                           <p class="iconfont me-menut">&#xe623;</p>
+                           <p>我的点赞</p>
+                       </div>
+                       <div class="me-menu-item me-menuhr" onclick="disp_page('http://www.cuteyep.com/app/index.php?s=Me/follow')">
+                           <p class="iconfont me-menut">&#xe623;</p>
+                           <p>我的关注</p>
+                       </div>
+                       <div class="me-menu-item" onclick="disp_page('http://www.cuteyep.com/app/index.php?s=Me/diy')">
+                           <p class="iconfont me-menut">&#xe623;</p>
+                           <p>我的制作</p>
+                       </div>
+                       <div class="me-menu-item" onclick="disp_page('http://www.cuteyep.com/app/index.php?s=Me/down')">
+                           <p class="iconfont me-menut">&#xe623;</p>
+                           <p>我的下载</p>
+                       </div>
+                       <div class="me-menu-item me-menuhr" onclick="disp_page('http://www.cuteyep.com/app/index.php?s=Me/poster')">
+                           <p class="iconfont me-menut">&#xe623;</p>
+                           <p>活动广告</p>
+                       </div>
+                       <div class="me-menu-item" onclick="disp_page('http://www.cuteyep.com/app/index.php?s=Me/more')">
+                           <p class="iconfont me-menut">&#xe623;</p>
+                           <p>更多</p>
+                       </div>
+                </div>
+          </section>
+         <div style=" height:80px"></div>
+          <script src="__APP__/public/js/ios_public.js"></script>
+         <script>
+         disp_page('wancheng4');
+         </script>
+           <include file="Public:ios_footer" />
+
